@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Live, auto-updating Solana ecosystem dashboard: network health, validators, supply, and economics, fetched client-side with no API keys." />
+<title>Solana Ecosystem Dashboard</title>
+<style>
+  :root {
+    --bg: #0A0E13;
+    --surface: #10161D;
+    --surface-2: #161D26;
+    --ink: #E4EAF0;
+    --ink-soft: #8496A8;
+    --ink-faint: #566575;
+    --border: #202A34;
+    --accent: #3DDC9A;
+    --accent-contrast: #05130D;
+    --critical: #F0555A;
+    --warning: #F2B84B;
+    --info: #5B9DF2;
+    --font-mono: ui-monospace, "Cascadia Code", "SF Mono", "JetBrains Mono", Consolas, monospace;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+    --radius: 10px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(61, 220, 154, 0.08), transparent),
+      var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  .app { max-width: 1080px; margin: 0 auto; padding: 1.75rem 1.25rem 4rem; }
+
+  a { color: var(--accent); }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .brand {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .brand strong { color: var(--ink); font-weight: 700; }
+
+  .status-bar { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; font-family: var(--font-mono); font-size: 0.8125rem; }
+  .health-pill { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.3rem 0.7rem; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); }
+  .health-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-faint); }
+  .health-pill.ok { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+  .health-pill.ok .dot { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+  .health-pill.bad { color: var(--critical); border-color: color-mix(in srgb, var(--critical) 40%, var(--border)); }
+  .health-pill.bad .dot { background: var(--critical); box-shadow: 0 0 8px var(--critical); }
+
+  #lastUpdated { color: var(--ink-faint); }
+
+  button {
+    font: inherit;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+  }
+  button:hover { background: var(--surface-2); }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  button:disabled { opacity: 0.5; cursor: default; }
+
+  .flags-panel { margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .flag { display: flex; gap: 0.6rem; align-items: baseline; padding: 0.6rem 0.9rem; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); font-size: 0.875rem; }
+  .flag .sev { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; flex-shrink: 0; }
+  .flag.critical { border-color: color-mix(in srgb, var(--critical) 35%, var(--border)); }
+  .flag.critical .sev { color: var(--critical); }
+  .flag.warning { border-color: color-mix(in srgb, var(--warning) 35%, var(--border)); }
+  .flag.warning .sev { color: var(--warning); }
+  .flag.info { border-color: color-mix(in srgb, var(--info) 35%, var(--border)); }
+  .flag.info .sev { color: var(--info); }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.9rem; margin-bottom: 1.75rem; }
+  .stat-tile { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.1rem; }
+  .stat-label { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-faint); }
+  .stat-value { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 600; font-variant-numeric: tabular-nums; margin-top: 0.3rem; color: var(--ink); }
+  .stat-sub { font-size: 0.75rem; color: var(--ink-soft); margin-top: 0.25rem; font-variant-numeric: tabular-nums; }
+  .stat-sub.pos { color: var(--accent); }
+  .stat-sub.neg { color: var(--critical); }
+
+  .progress-track { height: 5px; border-radius: 999px; background: var(--surface-2); margin-top: 0.6rem; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 999px; }
+
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.3rem; margin-bottom: 1.5rem; }
+  .panel h2 { font-family: var(--font-mono); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); margin: 0 0 1rem; font-weight: 700; }
+
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; font-family: var(--font-mono); }
+  th { text-align: left; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-faint); padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--border); font-weight: 600; }
+  td { padding: 0.55rem 0.6rem; border-bottom: 1px solid var(--border); color: var(--ink); white-space: nowrap; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .bar-cell { display: flex; align-items: center; gap: 0.5rem; }
+  .mini-bar { width: 60px; height: 4px; border-radius: 999px; background: var(--surface-2); overflow: hidden; flex-shrink: 0; }
+  .mini-bar-fill { height: 100%; background: var(--accent); }
+
+  .loading-row td { color: var(--ink-faint); font-style: italic; }
+
+  footer { text-align: center; color: var(--ink-faint); font-size: 0.78rem; font-family: var(--font-mono); margin-top: 2rem; line-height: 1.7; }
+
+  .skeleton { color: var(--ink-faint); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand"><strong>◎ SOLANA</strong> // ecosystem telemetry</div>
+    <div class="status-bar">
+      <span class="health-pill" id="healthPill"><span class="dot"></span><span id="healthText">connecting…</span></span>
+      <span id="lastUpdated">—</span>
+      <button id="refreshBtn" type="button">↻ Refresh</button>
+    </div>
+  </header>
+
+  <section id="flagsPanel" class="flags-panel" hidden></section>
+
+  <section class="stats-grid" id="statsGrid">
+    <div class="stat-tile">
+      <div class="stat-label">Epoch</div>
+      <div class="stat-value skeleton" id="statEpoch">—</div>
+      <div class="progress-track"><div class="progress-fill" id="epochProgressFill" style="width:0%"></div></div>
+      <div class="stat-sub" id="statEpochSub">—</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-label">Avg TPS (last 30 samples)</div>
+      <div class="stat-value skeleton" id="statTps">—</div>
+      <div class="stat-sub" id="statTpsSub">—</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-label">Validators</div>
+      <div class="stat-value skeleton" id="statValidators">—</div>
+      <div class="stat-sub" id="statValidatorsSub">—</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-label">Nakamoto Coefficient</div>
+      <div class="stat-value skeleton" id="statNakamoto">—</div>
+      <div class="stat-sub">validators to halt consensus</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-label">SOL Price</div>
+      <div class="stat-value skeleton" id="statPrice">—</div>
+      <div class="stat-sub" id="statPriceSub">—</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-label">DeFi TVL</div>
+      <div class="stat-value skeleton" id="statTvl">—</div>
+      <div class="stat-sub" id="statTvlSub">—</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-label">Stablecoin Supply</div>
+      <div class="stat-value skeleton" id="statStables">—</div>
+      <div class="stat-sub">circulating on Solana</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-label">Circulating Supply</div>
+      <div class="stat-value skeleton" id="statSupply">—</div>
+      <div class="stat-sub" id="statSupplySub">—</div>
+    </div>
+  </section>
+
+  <section class="panel" aria-label="Top validators">
+    <h2>Top 10 Validators by Stake</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Vote Account</th><th class="num">Commission</th><th class="num">Stake (SOL)</th><th>Share</th></tr>
+        </thead>
+        <tbody id="validatorsBody">
+          <tr class="loading-row"><td colspan="5">Fetching live data…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    Data fetched live, client-side, on every page load, from Solana public RPC, DeFiLlama, and CoinGecko. No API keys, no backend.<br />
+    Auto-refreshes every 60s. <a href="../reports/latest.md">Latest scheduled Markdown report</a> · <a href="../README.md">Methodology &amp; how to reproduce</a>
+  </footer>
+</div>
+
+<script>
+(function () {
+  const LAMPORTS_PER_SOL = 1_000_000_000;
+  const RPC_URL = 'https://api.mainnet-beta.solana.com';
+  let rpcId = 1;
+
+  async function rpc(method, params) {
+    const res = await fetch(RPC_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jsonrpc: '2.0', id: rpcId++, method, params: params || [] }),
+    });
+    const body = await res.json();
+    if (body.error) throw new Error(method + ': ' + body.error.message);
+    return body.result;
+  }
+
+  async function getJson(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('GET ' + url + ' -> ' + res.status);
+    return res.json();
+  }
+
+  function fmtNum(n, opts) {
+    if (n === null || n === undefined || Number.isNaN(n)) return '—';
+    return n.toLocaleString('en-US', opts || {});
+  }
+  function fmtUsd(n) {
+    if (n === null || n === undefined || Number.isNaN(n)) return '—';
+    if (n >= 1e9) return '$' + (n / 1e9).toFixed(2) + 'B';
+    if (n >= 1e6) return '$' + (n / 1e6).toFixed(2) + 'M';
+    return '$' + fmtNum(Math.round(n));
+  }
+
+  async function fetchSolana() {
+    const [epochInfo, health, perf, supply, voteAccounts] = await Promise.all([
+      rpc('getEpochInfo'),
+      rpc('getHealth').catch((e) => 'error: ' + e.message),
+      rpc('getRecentPerformanceSamples', [30]),
+      rpc('getSupply', [{ excludeNonCirculatingAccountsList: true }]),
+      rpc('getVoteAccounts'),
+    ]);
+
+    const totalTx = perf.reduce((s, x) => s + x.numTransactions, 0);
+    const totalSecs = perf.reduce((s, x) => s + x.samplePeriodSecs, 0);
+    const avgTps = totalSecs > 0 ? totalTx / totalSecs : null;
+
+    const current = voteAccounts.current;
+    const delinquent = voteAccounts.delinquent;
+    const totalValidators = current.length + delinquent.length;
+    const delinquencyPct = totalValidators > 0 ? (delinquent.length / totalValidators) * 100 : 0;
+
+    const sorted = current.slice().sort((a, b) => b.activatedStake - a.activatedStake);
+    const totalActiveStake = sorted.reduce((s, v) => s + v.activatedStake, 0);
+
+    let running = 0, nakamoto = 0;
+    for (const v of sorted) {
+      running += v.activatedStake;
+      nakamoto++;
+      if (running / totalActiveStake > 1 / 3) break;
+    }
+
+    const supplyValue = supply.value || supply;
+
+    return {
+      health,
+      epoch: {
+        epoch: epochInfo.epoch,
+        progressPct: (epochInfo.slotIndex / epochInfo.slotsInEpoch) * 100,
+        slotIndex: epochInfo.slotIndex,
+        slotsInEpoch: epochInfo.slotsInEpoch,
+      },
+      avgTps,
+      validators: { current: current.length, delinquent: delinquent.length, delinquencyPct, nakamoto },
+      topValidators: sorted.slice(0, 10).map((v) => ({
+        votePubkey: v.votePubkey,
+        commission: v.commission,
+        stakeSol: v.activatedStake / LAMPORTS_PER_SOL,
+        sharePct: totalActiveStake ? (v.activatedStake / totalActiveStake) * 100 : 0,
+      })),
+      supply: {
+        circulatingSol: supplyValue.circulating / LAMPORTS_PER_SOL,
+        totalSol: supplyValue.total / LAMPORTS_PER_SOL,
+      },
+    };
+  }
+
+  async function fetchDefi() {
+    const [chains, stableChains] = await Promise.all([
+      getJson('https://api.llama.fi/v2/chains'),
+      getJson('https://stablecoins.llama.fi/stablecoinchains'),
+    ]);
+    const sol = chains.find((c) => c.name === 'Solana');
+    const stables = stableChains.find((c) => c.name === 'Solana');
+    return {
+      tvlUsd: sol ? sol.tvl : null,
+      stablecoinSupplyUsd: stables ? stables.totalCirculatingUSD.peggedUSD : null,
+    };
+  }
+
+  async function fetchPrice() {
+    const d = await getJson('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd&include_24hr_change=true');
+    return { priceUsd: d.solana.usd, change24hPct: d.solana.usd_24h_change };
+  }
+
+  function setHealth(ok, text) {
+    const pill = document.getElementById('healthPill');
+    pill.classList.toggle('ok', ok === true);
+    pill.classList.toggle('bad', ok === false);
+    document.getElementById('healthText').textContent = text;
+  }
+
+  function renderFlags(flags) {
+    const panel = document.getElementById('flagsPanel');
+    panel.innerHTML = '';
+    if (!flags.length) { panel.hidden = true; return; }
+    panel.hidden = false;
+    flags.forEach((f) => {
+      const div = document.createElement('div');
+      div.className = 'flag ' + f.severity;
+      const sev = document.createElement('span');
+      sev.className = 'sev';
+      sev.textContent = f.severity;
+      const msg = document.createElement('span');
+      msg.textContent = f.message;
+      div.appendChild(sev);
+      div.appendChild(msg);
+      panel.appendChild(div);
+    });
+  }
+
+  function computeFlags(solana, defi, price) {
+    const flags = [];
+    if (solana.health !== 'ok') {
+      flags.push({ severity: 'critical', message: 'RPC getHealth did not return "ok": ' + solana.health });
+    }
+    if (solana.validators.delinquencyPct >= 5) {
+      flags.push({ severity: 'warning', message: solana.validators.delinquencyPct.toFixed(2) + '% of validators are delinquent (threshold 5%)' });
+    }
+    if (price.change24hPct !== null && Math.abs(price.change24hPct) >= 8) {
+      flags.push({ severity: 'info', message: 'SOL moved ' + price.change24hPct.toFixed(2) + '% in the last 24h' });
+    }
+    return flags;
+  }
+
+  function renderValidators(list) {
+    const body = document.getElementById('validatorsBody');
+    body.innerHTML = '';
+    list.forEach((v, i) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td>' + (i + 1) + '</td>' +
+        '<td>' + v.votePubkey.slice(0, 10) + '…</td>' +
+        '<td class="num">' + v.commission + '%</td>' +
+        '<td class="num">' + fmtNum(Math.round(v.stakeSol)) + '</td>' +
+        '<td><div class="bar-cell"><div class="mini-bar"><div class="mini-bar-fill" style="width:' + Math.min(100, v.sharePct * 10) + '%"></div></div>' + v.sharePct.toFixed(2) + '%</div></td>';
+      body.appendChild(tr);
+    });
+  }
+
+  async function refresh() {
+    const btn = document.getElementById('refreshBtn');
+    btn.disabled = true;
+    setHealth(null, 'fetching…');
+    try {
+      const [solana, defi, price] = await Promise.all([fetchSolana(), fetchDefi(), fetchPrice()]);
+
+      setHealth(solana.health === 'ok', solana.health === 'ok' ? 'healthy' : solana.health);
+      renderFlags(computeFlags(solana, defi, price));
+
+      document.getElementById('statEpoch').textContent = '#' + solana.epoch.epoch;
+      document.getElementById('epochProgressFill').style.width = solana.epoch.progressPct.toFixed(1) + '%';
+      document.getElementById('statEpochSub').textContent = solana.epoch.progressPct.toFixed(1) + '% · slot ' + fmtNum(solana.epoch.slotIndex) + '/' + fmtNum(solana.epoch.slotsInEpoch);
+
+      document.getElementById('statTps').textContent = fmtNum(Math.round(solana.avgTps));
+      document.getElementById('statTpsSub').textContent = 'transactions / second';
+
+      document.getElementById('statValidators').textContent = fmtNum(solana.validators.current);
+      document.getElementById('statValidatorsSub').textContent = solana.validators.delinquent + ' delinquent (' + solana.validators.delinquencyPct.toFixed(2) + '%)';
+
+      document.getElementById('statNakamoto').textContent = solana.validators.nakamoto;
+
+      document.getElementById('statPrice').textContent = price && price.priceUsd != null ? '$' + price.priceUsd.toFixed(2) : '—';
+      const chSub = document.getElementById('statPriceSub');
+      chSub.textContent = (price.change24hPct >= 0 ? '+' : '') + price.change24hPct.toFixed(2) + '% 24h';
+      chSub.className = 'stat-sub ' + (price.change24hPct >= 0 ? 'pos' : 'neg');
+
+      document.getElementById('statTvl').textContent = fmtUsd(defi.tvlUsd);
+      document.getElementById('statTvlSub').textContent = 'total value locked';
+
+      document.getElementById('statStables').textContent = fmtUsd(defi.stablecoinSupplyUsd);
+
+      document.getElementById('statSupply').textContent = fmtUsd(solana.supply.circulatingSol * price.priceUsd);
+      document.getElementById('statSupplySub').textContent = fmtNum(Math.round(solana.supply.circulatingSol)) + ' SOL';
+
+      renderValidators(solana.topValidators);
+
+      document.getElementById('lastUpdated').textContent = 'updated ' + new Date().toLocaleTimeString('en-US');
+      document.querySelectorAll('.skeleton').forEach((el) => el.classList.remove('skeleton'));
+    } catch (err) {
+      setHealth(false, 'fetch failed');
+      renderFlags([{ severity: 'critical', message: 'Live fetch failed: ' + err.message + '. Public RPC/API may be rate-limiting this browser, try Refresh in a moment.' }]);
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  document.getElementById('refreshBtn').addEventListener('click', refresh);
+  refresh();
+  setInterval(refresh, 60000);
+})();
+</script>
+</body>
+</html>

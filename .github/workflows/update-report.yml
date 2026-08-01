@@ -1,0 +1,36 @@
+name: Update Solana ecosystem report
+
+on:
+  schedule:
+    # Every 6 hours. GitHub Actions cron is UTC and best-effort on timing,
+    # which is fine for a low-maintenance ecosystem snapshot like this one.
+    - cron: '17 */6 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate report
+        run: node src/generateReport.js
+
+      - name: Commit updated report if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add reports/
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: auto-update ecosystem report"
+            git push
+          fi

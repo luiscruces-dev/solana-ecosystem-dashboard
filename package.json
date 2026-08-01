@@ -1,0 +1,13 @@
+{
+  "name": "solana-ecosystem-dashboard",
+  "version": "1.0.0",
+  "description": "Auto-updating Solana ecosystem report and interactive dashboard. No API keys, no dependencies beyond the Node.js standard library.",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "report": "node src/generateReport.js"
+  },
+  "license": "MIT"
+}
