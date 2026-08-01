@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getNetworkSnapshot } from './fetchers/solanaRpc.js';
 import { getDefiSnapshot } from './fetchers/defiLlama.js';
-import { getPriceSnapshot } from './fetchers/coinGecko.js';
+import { getMarketSnapshot } from './fetchers/coinGecko.js';
 import { detectAnomalies } from './anomalyDetection.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -82,10 +82,13 @@ function toMarkdown(report) {
 
   lines.push('## Supply');
   if (solana.supply) {
-    lines.push(`- Total: ${Math.round(solana.supply.totalSol).toLocaleString('en-US')} SOL`);
-    lines.push(`- Circulating: ${Math.round(solana.supply.circulatingSol).toLocaleString('en-US')} SOL`);
+    lines.push(`- Total: ${Math.round(solana.supply.totalSol).toLocaleString('en-US')} SOL _(source: Solana RPC getSupply)_`);
+    lines.push(`- Circulating: ${Math.round(solana.supply.circulatingSol).toLocaleString('en-US')} SOL _(source: Solana RPC getSupply)_`);
+  } else if (price.circulatingSupplySol) {
+    lines.push(`- Total: ${Math.round(price.totalSupplySol).toLocaleString('en-US')} SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_`);
+    lines.push(`- Circulating: ${Math.round(price.circulatingSupplySol).toLocaleString('en-US')} SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_`);
   } else {
-    lines.push('- Supply data: n/a this run (getSupply is unreliable across public RPC endpoints; see README)');
+    lines.push('- Supply data: n/a this run (both RPC getSupply and the CoinGecko fallback were unavailable)');
   }
   lines.push('');
 
@@ -108,7 +111,7 @@ export async function generateReport() {
   const [solana, defi, price] = await Promise.all([
     getNetworkSnapshot(),
     getDefiSnapshot(),
-    getPriceSnapshot(),
+    getMarketSnapshot(),
   ]);
 
   const partial = { fetchedAt: new Date().toISOString(), solana, defi, price };

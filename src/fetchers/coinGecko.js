@@ -6,15 +6,21 @@ async function getJson(url) {
   return res.json();
 }
 
-export async function getPriceSnapshot() {
+// Single richer endpoint instead of /simple/price: also carries circulating/total
+// supply, which doubles as a reliable fallback for Solana RPC's getSupply -- that
+// RPC method hangs or is restricted on every free public endpoint we tested, while
+// this CoinGecko field agrees with it (verified) and just works.
+export async function getMarketSnapshot() {
   const data = await getJson(
-    'https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd&include_24hr_change=true&include_market_cap=true&include_24hr_vol=true'
+    'https://api.coingecko.com/api/v3/coins/solana?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false'
   );
-  const sol = data.solana ?? {};
+  const m = data.market_data ?? {};
   return {
-    priceUsd: sol.usd ?? null,
-    change24hPct: sol.usd_24h_change !== undefined ? Number(sol.usd_24h_change.toFixed(2)) : null,
-    marketCapUsd: sol.usd_market_cap ?? null,
-    volume24hUsd: sol.usd_24h_vol ?? null,
+    priceUsd: m.current_price?.usd ?? null,
+    change24hPct: m.price_change_percentage_24h !== undefined ? Number(m.price_change_percentage_24h.toFixed(2)) : null,
+    marketCapUsd: m.market_cap?.usd ?? null,
+    volume24hUsd: m.total_volume?.usd ?? null,
+    circulatingSupplySol: m.circulating_supply ?? null,
+    totalSupplySol: m.total_supply ?? null,
   };
 }

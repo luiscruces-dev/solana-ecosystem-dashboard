@@ -1,23 +1,23 @@
 {
-  "fetchedAt": "2026-08-01T04:15:16.435Z",
+  "fetchedAt": "2026-08-01T04:13:14.799Z",
   "solana": {
-    "fetchedAt": "2026-08-01T04:15:16.431Z",
+    "fetchedAt": "2026-08-01T04:13:14.796Z",
     "warnings": [
       "RPC getSupply timed out after 8000ms"
     ],
     "epoch": {
       "epoch": 1010,
-      "slotIndex": 171194,
+      "slotIndex": 170901,
       "slotsInEpoch": 432000,
-      "progressPct": 39.628240740740736,
-      "absoluteSlot": 436491194,
-      "blockHeight": 414547298
+      "progressPct": 39.56041666666666,
+      "absoluteSlot": 436490901,
+      "blockHeight": 414547005
     },
     "health": "ok",
     "performance": {
-      "avgTps": 3060.9,
-      "avgNonVoteTps": 1431.1,
-      "latestSampleTps": 2912.6,
+      "avgTps": 3058.3,
+      "avgNonVoteTps": 1431.3,
+      "latestSampleTps": 2888.8,
       "sampleWindowCount": 30
     },
     "supply": null,
@@ -108,10 +108,10 @@
     "stablecoinSupplyUsd": 15679542191.45902
   },
   "price": {
-    "priceUsd": 73.02,
-    "change24hPct": -1.28,
-    "marketCapUsd": 42423587723,
-    "volume24hUsd": 1456726378,
+    "priceUsd": 72.99,
+    "change24hPct": -1.37,
+    "marketCapUsd": 42414454106,
+    "volume24hUsd": 1456767559,
     "circulatingSupplySol": 581078888.9759004,
     "totalSupplySol": 631376421.4201885
   },

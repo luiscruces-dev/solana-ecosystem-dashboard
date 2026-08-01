@@ -356,12 +356,22 @@
     };
   }
 
-  async function fetchPrice() {
+  async function fetchMarket() {
+    // Also doubles as the reliable fallback for circulating supply: RPC getSupply
+    // hangs or is restricted on every free public endpoint tested, this field agrees
+    // with it when both are available and just works.
     try {
-      const d = await getJson('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd&include_24hr_change=true', 'CoinGecko price');
-      return { priceUsd: d.solana.usd, change24hPct: d.solana.usd_24h_change };
+      const d = await getJson('https://api.coingecko.com/api/v3/coins/solana?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false', 'CoinGecko market data');
+      const m = d.market_data || {};
+      return {
+        priceUsd: m.current_price ? m.current_price.usd : null,
+        change24hPct: m.price_change_percentage_24h != null ? m.price_change_percentage_24h : null,
+        marketCapUsd: m.market_cap ? m.market_cap.usd : null,
+        volume24hUsd: m.total_volume ? m.total_volume.usd : null,
+        circulatingSupplySol: m.circulating_supply != null ? m.circulating_supply : null,
+      };
     } catch (e) {
-      return { priceUsd: null, change24hPct: null };
+      return { priceUsd: null, change24hPct: null, marketCapUsd: null, volume24hUsd: null, circulatingSupplySol: null };
     }
   }
 
@@ -426,7 +436,7 @@
     btn.disabled = true;
     setHealth(null, 'fetching…');
     try {
-      const [solana, defi, price] = await Promise.all([fetchSolana(), fetchDefi(), fetchPrice()]);
+      const [solana, defi, price] = await Promise.all([fetchSolana(), fetchDefi(), fetchMarket()]);
 
       setHealth(solana.health === 'ok', solana.health === 'ok' ? 'healthy' : solana.health);
       renderFlags(computeFlags(solana, defi, price));
@@ -462,9 +472,10 @@
 
       document.getElementById('statStables').textContent = fmtUsd(defi.stablecoinSupplyUsd);
 
-      if (solana.supply && price && price.priceUsd != null) {
-        document.getElementById('statSupply').textContent = fmtUsd(solana.supply.circulatingSol * price.priceUsd);
-        document.getElementById('statSupplySub').textContent = fmtNum(Math.round(solana.supply.circulatingSol)) + ' SOL';
+      const circulatingSol = solana.supply ? solana.supply.circulatingSol : (price && price.circulatingSupplySol);
+      if (circulatingSol && price && price.priceUsd != null) {
+        document.getElementById('statSupply').textContent = fmtUsd(circulatingSol * price.priceUsd);
+        document.getElementById('statSupplySub').textContent = fmtNum(Math.round(circulatingSol)) + ' SOL' + (solana.supply ? '' : ' (via CoinGecko)');
       } else {
         document.getElementById('statSupply').textContent = '—';
         document.getElementById('statSupplySub').textContent = 'supply data unavailable this refresh';

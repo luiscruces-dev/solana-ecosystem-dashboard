@@ -18,17 +18,27 @@ The dashboard and the scheduled report share the same three data sources and the
 
 | Source | What it provides |
 |---|---|
-| [Solana public RPC](https://api.mainnet-beta.solana.com) | `getEpochInfo`, `getHealth`, `getRecentPerformanceSamples`, `getSupply`, `getVoteAccounts` — network performance, epoch progress, supply, validator set |
+| [Solana public RPC](https://solana-rpc.publicnode.com) | `getEpochInfo`, `getHealth`, `getRecentPerformanceSamples`, `getSupply`, `getVoteAccounts` — network performance, epoch progress, supply, validator set |
 | [DeFiLlama](https://defillama.com) | Solana's total value locked (TVL) and its rank among all chains, stablecoin supply on Solana |
-| [CoinGecko](https://coingecko.com) | SOL price, market cap, 24h volume and change |
+| [CoinGecko](https://coingecko.com) | SOL price, market cap, 24h volume/change, and circulating/total supply (doubles as the reliability fallback below) |
 
-All three expose CORS-open public endpoints, verified before building this (see the three `curl -I` checks referenced in project history) — that's what makes the pure client-side dashboard architecture possible at all.
+All three expose CORS-open public endpoints, verified directly (not assumed) before building this — that's what makes the pure client-side dashboard architecture possible at all.
+
+## Reliability: why this doesn't just break when public infra flakes
+
+Free public RPC endpoints are genuinely unreliable, and this project doesn't pretend otherwise:
+
+- `api.mainnet-beta.solana.com` actively returns `403 Access forbidden` when called from this dashboard's real GitHub Pages origin — confirmed live against the deployed site, not a guess. Default endpoint is `solana-rpc.publicnode.com` instead (also verified live).
+- `getSupply` specifically hangs or is explicitly restricted on every free public RPC we tested (publicnode, Ankr, OnFinality, extrnode, Helius' public tier). Rather than chase a fifth endpoint, every single RPC and HTTP call, in both the browser dashboard and the Node report generator, gets its **own timeout** (8s) and is allowed to **fail independently**. One flaky field degrades to "unavailable this refresh" with the exact reason shown, instead of taking the whole dashboard down.
+- For circulating/total supply specifically, CoinGecko's market data (already being fetched for price) carries the same numbers RPC would, so it's used as an automatic fallback when `getSupply` doesn't come back in time. In practice this means the Supply section is populated on effectively every load, sourced from whichever of the two actually responded, and labeled accordingly.
+
+This is also why there are two independent delivery mechanisms (live client-side dashboard + scheduled Node report) instead of one: they don't share a failure mode.
 
 ## Metrics covered
 
 - **Network:** health check, epoch progress, block height, average and latest-sample TPS
 - **Validators:** active vs. delinquent count and %, top 10 by stake, **Nakamoto coefficient** (minimum validators whose combined stake exceeds 1/3 of total active stake — the number that would need to collude or go offline to threaten consensus; computed directly from live stake data, not looked up)
-- **Supply:** total and circulating SOL
+- **Supply:** total and circulating SOL, from RPC or the CoinGecko fallback described above
 - **Economics:** SOL price + 24h change, market cap, 24h volume, Solana DeFi TVL and its share of all tracked chains, stablecoin supply on Solana
 
 Not included: Real Economic Value (REV) and precise median transaction fees. Both need either a paid data provider or scanning large volumes of individual transactions, which conflicts with the "no API keys, no external dependencies" goal. Noted here rather than faked with a made-up number.

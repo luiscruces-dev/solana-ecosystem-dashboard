@@ -1,17 +1,17 @@
 # Solana Ecosystem Report
 
-_Generated 2026-08-01T04:03:43.869Z_
+_Generated 2026-08-01T04:15:16.435Z_
 
 ## ⚠ Partial data
 One or more Solana RPC calls failed or timed out this run; those fields show as unavailable below rather than breaking the whole report.
-- This operation was aborted
+- RPC getSupply timed out after 8000ms
 
 ## Network
 - Health: **ok**
-- Epoch 1010, 39.25% complete (slot 169,550 / 432,000)
-- Block height: 414,545,654 | Absolute slot: 436,489,550
-- Avg TPS (last 30 samples): **3015.3** (1387.2 non-vote)
-- Latest sample TPS: 3345.8
+- Epoch 1010, 39.63% complete (slot 171,194 / 432,000)
+- Block height: 414,547,298 | Absolute slot: 436,491,194
+- Avg TPS (last 30 samples): **3060.9** (1431.1 non-vote)
+- Latest sample TPS: 2912.6
 
 ## Validators
 - Active: 693 | Delinquent: 11 (1.56%)
@@ -31,11 +31,12 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 | 10 | `DumiCKHV…` | 0% | 6,638,435 | 1.54% |
 
 ## Supply
-- Supply data: n/a this run (getSupply is unreliable across public RPC endpoints; see README)
+- Total: 631,376,421 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Circulating: 581,078,889 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
 
 ## Economics
-- SOL price: **$72.98** (-1.48% 24h)
-- Market cap: $42,400,740,393 | 24h volume: $1,458,589,966
+- SOL price: **$73.02** (-1.28% 24h)
+- Market cap: $42,423,587,723 | 24h volume: $1,456,726,378
 - Solana DeFi TVL: $4,735,233,546 (rank #4 across all chains, 6.37% of tracked TVL)
 - Stablecoin supply on Solana: $15,679,542,191
 
