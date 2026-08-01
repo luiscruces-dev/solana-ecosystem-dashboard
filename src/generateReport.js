@@ -39,44 +39,65 @@ function toMarkdown(report) {
     lines.push('## ⚠ Flags');
     for (const f of anomalies.flags) {
       const icon = f.severity === 'critical' ? '🔴' : f.severity === 'warning' ? '🟡' : '🔵';
-      lines.push(`- ${icon} **${f.metric}** — ${f.message}`);
+      lines.push(`- ${icon} **${f.metric}:** ${f.message}`);
     }
     lines.push('');
   }
 
+  if (solana.warnings && solana.warnings.length > 0) {
+    lines.push('## ⚠ Partial data');
+    lines.push('One or more Solana RPC calls failed or timed out this run; those fields show as unavailable below rather than breaking the whole report.');
+    solana.warnings.forEach((w) => lines.push(`- ${w}`));
+    lines.push('');
+  }
+
+  const na = (v) => (v === null || v === undefined ? 'n/a' : v);
+
   lines.push('## Network');
-  lines.push(`- Health: **${solana.health}**`);
-  lines.push(`- Epoch ${solana.epoch.epoch} — ${solana.epoch.progressPct.toFixed(2)}% complete (slot ${solana.epoch.slotIndex.toLocaleString('en-US')} / ${solana.epoch.slotsInEpoch.toLocaleString('en-US')})`);
-  lines.push(`- Block height: ${solana.epoch.blockHeight.toLocaleString('en-US')} | Absolute slot: ${solana.epoch.absoluteSlot.toLocaleString('en-US')}`);
-  lines.push(`- Avg TPS (last ${solana.performance.sampleWindowCount} samples): **${solana.performance.avgTps}** (${solana.performance.avgNonVoteTps} non-vote)`);
-  lines.push(`- Latest sample TPS: ${solana.performance.latestSampleTps}`);
+  lines.push(`- Health: **${na(solana.health)}**`);
+  if (solana.epoch) {
+    lines.push(`- Epoch ${solana.epoch.epoch}, ${solana.epoch.progressPct.toFixed(2)}% complete (slot ${solana.epoch.slotIndex.toLocaleString('en-US')} / ${solana.epoch.slotsInEpoch.toLocaleString('en-US')})`);
+    lines.push(`- Block height: ${solana.epoch.blockHeight.toLocaleString('en-US')} | Absolute slot: ${solana.epoch.absoluteSlot.toLocaleString('en-US')}`);
+  } else {
+    lines.push('- Epoch info: n/a this run');
+  }
+  lines.push(`- Avg TPS (last ${solana.performance.sampleWindowCount} samples): **${na(solana.performance.avgTps)}** (${na(solana.performance.avgNonVoteTps)} non-vote)`);
+  lines.push(`- Latest sample TPS: ${na(solana.performance.latestSampleTps)}`);
   lines.push('');
 
   lines.push('## Validators');
-  lines.push(`- Active: ${solana.validators.current.toLocaleString('en-US')} | Delinquent: ${solana.validators.delinquent.toLocaleString('en-US')} (${solana.validators.delinquencyPct}%)`);
-  lines.push(`- Nakamoto coefficient (stake): **${solana.validators.nakamotoCoefficient}** validators control >1/3 of active stake`);
-  lines.push('');
-  lines.push('| # | Vote Account | Commission | Stake (SOL) | Share |');
-  lines.push('|---|---|---|---|---|');
-  solana.validators.topValidators.forEach((v, i) => {
-    lines.push(`| ${i + 1} | \`${v.votePubkey.slice(0, 8)}…\` | ${v.commission}% | ${Math.round(v.activatedStakeSol).toLocaleString('en-US')} | ${v.stakeSharePct.toFixed(2)}% |`);
-  });
+  if (solana.validators.current !== null) {
+    lines.push(`- Active: ${solana.validators.current.toLocaleString('en-US')} | Delinquent: ${solana.validators.delinquent.toLocaleString('en-US')} (${solana.validators.delinquencyPct}%)`);
+    lines.push(`- Nakamoto coefficient (stake): **${solana.validators.nakamotoCoefficient}** validators control >1/3 of active stake`);
+    lines.push('');
+    lines.push('| # | Vote Account | Commission | Stake (SOL) | Share |');
+    lines.push('|---|---|---|---|---|');
+    solana.validators.topValidators.forEach((v, i) => {
+      lines.push(`| ${i + 1} | \`${v.votePubkey.slice(0, 8)}…\` | ${v.commission}% | ${Math.round(v.activatedStakeSol).toLocaleString('en-US')} | ${v.stakeSharePct.toFixed(2)}% |`);
+    });
+  } else {
+    lines.push('- Validator data: n/a this run');
+  }
   lines.push('');
 
   lines.push('## Supply');
-  lines.push(`- Total: ${Math.round(solana.supply.totalSol).toLocaleString('en-US')} SOL`);
-  lines.push(`- Circulating: ${Math.round(solana.supply.circulatingSol).toLocaleString('en-US')} SOL`);
+  if (solana.supply) {
+    lines.push(`- Total: ${Math.round(solana.supply.totalSol).toLocaleString('en-US')} SOL`);
+    lines.push(`- Circulating: ${Math.round(solana.supply.circulatingSol).toLocaleString('en-US')} SOL`);
+  } else {
+    lines.push('- Supply data: n/a this run (getSupply is unreliable across public RPC endpoints; see README)');
+  }
   lines.push('');
 
   lines.push('## Economics');
-  lines.push(`- SOL price: **$${price.priceUsd}** (${price.change24hPct >= 0 ? '+' : ''}${price.change24hPct}% 24h)`);
+  lines.push(`- SOL price: **$${na(price.priceUsd)}** (${price.change24hPct >= 0 ? '+' : ''}${na(price.change24hPct)}% 24h)`);
   lines.push(`- Market cap: ${fmtUsd(price.marketCapUsd)} | 24h volume: ${fmtUsd(price.volume24hUsd)}`);
-  lines.push(`- Solana DeFi TVL: ${fmtUsd(defi.tvlUsd)} (rank #${defi.tvlRankAmongChains} across all chains, ${defi.tvlShareOfAllChainsPct}% of tracked TVL)`);
+  lines.push(`- Solana DeFi TVL: ${fmtUsd(defi.tvlUsd)} (rank #${na(defi.tvlRankAmongChains)} across all chains, ${na(defi.tvlShareOfAllChainsPct)}% of tracked TVL)`);
   lines.push(`- Stablecoin supply on Solana: ${fmtUsd(defi.stablecoinSupplyUsd)}`);
   lines.push('');
 
   lines.push('---');
-  lines.push('_Data sources: Solana public RPC (api.mainnet-beta.solana.com), DeFiLlama, CoinGecko. No API keys used. See README for methodology and how to reproduce this report._');
+  lines.push('_Data sources: Solana public RPC (solana-rpc.publicnode.com), DeFiLlama, CoinGecko. No API keys used. See README for methodology, endpoint choice, and how to reproduce this report._');
 
   return lines.join('\n');
 }

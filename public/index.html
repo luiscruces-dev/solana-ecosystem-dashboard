@@ -209,24 +209,57 @@
 <script>
 (function () {
   const LAMPORTS_PER_SOL = 1_000_000_000;
-  const RPC_URL = 'https://api.mainnet-beta.solana.com';
+  // api.mainnet-beta.solana.com 403s requests from this dashboard's own GitHub Pages
+  // origin (confirmed directly, not assumed); publicnode is the verified-working
+  // default. getSupply specifically is unreliable on every free public RPC we tested,
+  // so it (and every other call) gets its own timeout and is allowed to fail without
+  // taking the rest of the dashboard down.
+  const RPC_URL = 'https://solana-rpc.publicnode.com';
+  const CALL_TIMEOUT_MS = 8000;
   let rpcId = 1;
 
-  async function rpc(method, params) {
-    const res = await fetch(RPC_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ jsonrpc: '2.0', id: rpcId++, method, params: params || [] }),
-    });
-    const body = await res.json();
-    if (body.error) throw new Error(method + ': ' + body.error.message);
-    return body.result;
+  async function withTimeout(promiseFactory, label) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), CALL_TIMEOUT_MS);
+    try {
+      return await promiseFactory(controller.signal);
+    } catch (e) {
+      if (e.name === 'AbortError') throw new Error(label + ' timed out after ' + CALL_TIMEOUT_MS + 'ms');
+      throw e;
+    } finally {
+      clearTimeout(timer);
+    }
   }
 
-  async function getJson(url) {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error('GET ' + url + ' -> ' + res.status);
-    return res.json();
+  async function rpc(method, params) {
+    return withTimeout(async (signal) => {
+      const res = await fetch(RPC_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ jsonrpc: '2.0', id: rpcId++, method, params: params || [] }),
+        signal,
+      });
+      const body = await res.json();
+      if (body.error) throw new Error(method + ': ' + body.error.message);
+      return body.result;
+    }, 'RPC ' + method);
+  }
+
+  // Returns { ok: true, value } or { ok: false, error }. Never throws.
+  async function rpcSafe(method, params) {
+    try {
+      return { ok: true, value: await rpc(method, params) };
+    } catch (e) {
+      return { ok: false, error: e.message };
+    }
+  }
+
+  async function getJson(url, label) {
+    return withTimeout(async (signal) => {
+      const res = await fetch(url, { signal });
+      if (!res.ok) throw new Error('GET ' + url + ' -> ' + res.status);
+      return res.json();
+    }, label || url);
   }
 
   function fmtNum(n, opts) {
@@ -241,65 +274,82 @@
   }
 
   async function fetchSolana() {
-    const [epochInfo, health, perf, supply, voteAccounts] = await Promise.all([
-      rpc('getEpochInfo'),
-      rpc('getHealth').catch((e) => 'error: ' + e.message),
-      rpc('getRecentPerformanceSamples', [30]),
-      rpc('getSupply', [{ excludeNonCirculatingAccountsList: true }]),
-      rpc('getVoteAccounts'),
+    const [epochInfoR, healthR, perfR, supplyR, voteAccountsR] = await Promise.all([
+      rpcSafe('getEpochInfo'),
+      rpcSafe('getHealth'),
+      rpcSafe('getRecentPerformanceSamples', [30]),
+      rpcSafe('getSupply', [{ excludeNonCirculatingAccountsList: true }]),
+      rpcSafe('getVoteAccounts'),
     ]);
 
+    const warnings = [epochInfoR, healthR, perfR, supplyR, voteAccountsR]
+      .filter((r) => !r.ok)
+      .map((r) => r.error);
+
+    const perf = perfR.ok ? perfR.value : [];
     const totalTx = perf.reduce((s, x) => s + x.numTransactions, 0);
     const totalSecs = perf.reduce((s, x) => s + x.samplePeriodSecs, 0);
     const avgTps = totalSecs > 0 ? totalTx / totalSecs : null;
 
-    const current = voteAccounts.current;
-    const delinquent = voteAccounts.delinquent;
-    const totalValidators = current.length + delinquent.length;
-    const delinquencyPct = totalValidators > 0 ? (delinquent.length / totalValidators) * 100 : 0;
+    let validators = { current: null, delinquent: null, delinquencyPct: null, nakamoto: null };
+    let topValidators = [];
+    if (voteAccountsR.ok) {
+      const current = voteAccountsR.value.current;
+      const delinquent = voteAccountsR.value.delinquent;
+      const totalValidators = current.length + delinquent.length;
+      const delinquencyPct = totalValidators > 0 ? (delinquent.length / totalValidators) * 100 : 0;
 
-    const sorted = current.slice().sort((a, b) => b.activatedStake - a.activatedStake);
-    const totalActiveStake = sorted.reduce((s, v) => s + v.activatedStake, 0);
+      const sorted = current.slice().sort((a, b) => b.activatedStake - a.activatedStake);
+      const totalActiveStake = sorted.reduce((s, v) => s + v.activatedStake, 0);
 
-    let running = 0, nakamoto = 0;
-    for (const v of sorted) {
-      running += v.activatedStake;
-      nakamoto++;
-      if (running / totalActiveStake > 1 / 3) break;
-    }
+      let running = 0, nakamoto = 0;
+      for (const v of sorted) {
+        running += v.activatedStake;
+        nakamoto++;
+        if (running / totalActiveStake > 1 / 3) break;
+      }
 
-    const supplyValue = supply.value || supply;
-
-    return {
-      health,
-      epoch: {
-        epoch: epochInfo.epoch,
-        progressPct: (epochInfo.slotIndex / epochInfo.slotsInEpoch) * 100,
-        slotIndex: epochInfo.slotIndex,
-        slotsInEpoch: epochInfo.slotsInEpoch,
-      },
-      avgTps,
-      validators: { current: current.length, delinquent: delinquent.length, delinquencyPct, nakamoto },
-      topValidators: sorted.slice(0, 10).map((v) => ({
+      validators = { current: current.length, delinquent: delinquent.length, delinquencyPct, nakamoto };
+      topValidators = sorted.slice(0, 10).map((v) => ({
         votePubkey: v.votePubkey,
         commission: v.commission,
         stakeSol: v.activatedStake / LAMPORTS_PER_SOL,
         sharePct: totalActiveStake ? (v.activatedStake / totalActiveStake) * 100 : 0,
-      })),
-      supply: {
+      }));
+    }
+
+    let supply = null;
+    if (supplyR.ok) {
+      const supplyValue = supplyR.value.value || supplyR.value;
+      supply = {
         circulatingSol: supplyValue.circulating / LAMPORTS_PER_SOL,
         totalSol: supplyValue.total / LAMPORTS_PER_SOL,
-      },
+      };
+    }
+
+    return {
+      warnings,
+      health: healthR.ok ? healthR.value : 'unavailable',
+      epoch: epochInfoR.ok ? {
+        epoch: epochInfoR.value.epoch,
+        progressPct: (epochInfoR.value.slotIndex / epochInfoR.value.slotsInEpoch) * 100,
+        slotIndex: epochInfoR.value.slotIndex,
+        slotsInEpoch: epochInfoR.value.slotsInEpoch,
+      } : null,
+      avgTps,
+      validators,
+      topValidators,
+      supply,
     };
   }
 
   async function fetchDefi() {
-    const [chains, stableChains] = await Promise.all([
-      getJson('https://api.llama.fi/v2/chains'),
-      getJson('https://stablecoins.llama.fi/stablecoinchains'),
+    const [chainsR, stableChainsR] = await Promise.all([
+      getJson('https://api.llama.fi/v2/chains', 'DeFiLlama chains').then((v) => ({ ok: true, value: v })).catch((e) => ({ ok: false, error: e.message })),
+      getJson('https://stablecoins.llama.fi/stablecoinchains', 'DeFiLlama stablecoins').then((v) => ({ ok: true, value: v })).catch((e) => ({ ok: false, error: e.message })),
     ]);
-    const sol = chains.find((c) => c.name === 'Solana');
-    const stables = stableChains.find((c) => c.name === 'Solana');
+    const sol = chainsR.ok ? chainsR.value.find((c) => c.name === 'Solana') : null;
+    const stables = stableChainsR.ok ? stableChainsR.value.find((c) => c.name === 'Solana') : null;
     return {
       tvlUsd: sol ? sol.tvl : null,
       stablecoinSupplyUsd: stables ? stables.totalCirculatingUSD.peggedUSD : null,
@@ -307,8 +357,12 @@
   }
 
   async function fetchPrice() {
-    const d = await getJson('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd&include_24hr_change=true');
-    return { priceUsd: d.solana.usd, change24hPct: d.solana.usd_24h_change };
+    try {
+      const d = await getJson('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd&include_24hr_change=true', 'CoinGecko price');
+      return { priceUsd: d.solana.usd, change24hPct: d.solana.usd_24h_change };
+    } catch (e) {
+      return { priceUsd: null, change24hPct: null };
+    }
   }
 
   function setHealth(ok, text) {
@@ -342,9 +396,10 @@
     if (solana.health !== 'ok') {
       flags.push({ severity: 'critical', message: 'RPC getHealth did not return "ok": ' + solana.health });
     }
-    if (solana.validators.delinquencyPct >= 5) {
+    if (solana.validators.delinquencyPct !== null && solana.validators.delinquencyPct >= 5) {
       flags.push({ severity: 'warning', message: solana.validators.delinquencyPct.toFixed(2) + '% of validators are delinquent (threshold 5%)' });
     }
+    (solana.warnings || []).forEach((w) => flags.push({ severity: 'info', message: 'Partial data: ' + w }));
     if (price.change24hPct !== null && Math.abs(price.change24hPct) >= 8) {
       flags.push({ severity: 'info', message: 'SOL moved ' + price.change24hPct.toFixed(2) + '% in the last 24h' });
     }
@@ -376,30 +431,44 @@
       setHealth(solana.health === 'ok', solana.health === 'ok' ? 'healthy' : solana.health);
       renderFlags(computeFlags(solana, defi, price));
 
-      document.getElementById('statEpoch').textContent = '#' + solana.epoch.epoch;
-      document.getElementById('epochProgressFill').style.width = solana.epoch.progressPct.toFixed(1) + '%';
-      document.getElementById('statEpochSub').textContent = solana.epoch.progressPct.toFixed(1) + '% · slot ' + fmtNum(solana.epoch.slotIndex) + '/' + fmtNum(solana.epoch.slotsInEpoch);
+      document.getElementById('statEpoch').textContent = solana.epoch ? '#' + solana.epoch.epoch : '—';
+      document.getElementById('epochProgressFill').style.width = (solana.epoch ? solana.epoch.progressPct : 0).toFixed(1) + '%';
+      document.getElementById('statEpochSub').textContent = solana.epoch
+        ? solana.epoch.progressPct.toFixed(1) + '% · slot ' + fmtNum(solana.epoch.slotIndex) + '/' + fmtNum(solana.epoch.slotsInEpoch)
+        : 'unavailable this refresh';
 
-      document.getElementById('statTps').textContent = fmtNum(Math.round(solana.avgTps));
+      document.getElementById('statTps').textContent = solana.avgTps != null ? fmtNum(Math.round(solana.avgTps)) : '—';
       document.getElementById('statTpsSub').textContent = 'transactions / second';
 
       document.getElementById('statValidators').textContent = fmtNum(solana.validators.current);
-      document.getElementById('statValidatorsSub').textContent = solana.validators.delinquent + ' delinquent (' + solana.validators.delinquencyPct.toFixed(2) + '%)';
+      document.getElementById('statValidatorsSub').textContent = solana.validators.current !== null
+        ? solana.validators.delinquent + ' delinquent (' + solana.validators.delinquencyPct.toFixed(2) + '%)'
+        : 'unavailable this refresh';
 
-      document.getElementById('statNakamoto').textContent = solana.validators.nakamoto;
+      document.getElementById('statNakamoto').textContent = solana.validators.nakamoto !== null ? solana.validators.nakamoto : '—';
 
       document.getElementById('statPrice').textContent = price && price.priceUsd != null ? '$' + price.priceUsd.toFixed(2) : '—';
       const chSub = document.getElementById('statPriceSub');
-      chSub.textContent = (price.change24hPct >= 0 ? '+' : '') + price.change24hPct.toFixed(2) + '% 24h';
-      chSub.className = 'stat-sub ' + (price.change24hPct >= 0 ? 'pos' : 'neg');
+      if (price && price.change24hPct != null) {
+        chSub.textContent = (price.change24hPct >= 0 ? '+' : '') + price.change24hPct.toFixed(2) + '% 24h';
+        chSub.className = 'stat-sub ' + (price.change24hPct >= 0 ? 'pos' : 'neg');
+      } else {
+        chSub.textContent = 'unavailable this refresh';
+        chSub.className = 'stat-sub';
+      }
 
       document.getElementById('statTvl').textContent = fmtUsd(defi.tvlUsd);
       document.getElementById('statTvlSub').textContent = 'total value locked';
 
       document.getElementById('statStables').textContent = fmtUsd(defi.stablecoinSupplyUsd);
 
-      document.getElementById('statSupply').textContent = fmtUsd(solana.supply.circulatingSol * price.priceUsd);
-      document.getElementById('statSupplySub').textContent = fmtNum(Math.round(solana.supply.circulatingSol)) + ' SOL';
+      if (solana.supply && price && price.priceUsd != null) {
+        document.getElementById('statSupply').textContent = fmtUsd(solana.supply.circulatingSol * price.priceUsd);
+        document.getElementById('statSupplySub').textContent = fmtNum(Math.round(solana.supply.circulatingSol)) + ' SOL';
+      } else {
+        document.getElementById('statSupply').textContent = '—';
+        document.getElementById('statSupplySub').textContent = 'supply data unavailable this refresh';
+      }
 
       renderValidators(solana.topValidators);
 
