@@ -1,6 +1,6 @@
 # Solana Ecosystem Report
 
-_Generated 2026-08-04T10:18:42.320Z_
+_Generated 2026-08-04T18:17:57.656Z_
 
 ## ⚠ Partial data
 One or more Solana RPC calls failed or timed out this run; those fields show as unavailable below rather than breaking the whole report.
@@ -8,37 +8,37 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 
 ## Network
 - Health: **ok**
-- Epoch 1011, 93.62% complete (slot 404,453 / 432,000)
-- Block height: 415,211,255 | Absolute slot: 437,156,453
-- Avg TPS (last 30 samples): **3172.7** (1542.7 non-vote)
-- Latest sample TPS: 3252.5
+- Epoch 1012, 9.32% complete (slot 40,281 / 432,000)
+- Block height: 415,279,000 | Absolute slot: 437,224,281
+- Avg TPS (last 30 samples): **4030.2** (2417.7 non-vote)
+- Latest sample TPS: 3935.9
 
 ## Validators
-- Active: 691 | Delinquent: 12 (1.71%)
+- Active: 692 | Delinquent: 7 (1%)
 - Nakamoto coefficient (stake): **18** validators control >1/3 of active stake
 
 | # | Vote Account | Commission | Stake (SOL) | Share |
 |---|---|---|---|---|
-| 1 | `CcaHc2L4…` | 7% | 16,803,593 | 3.89% |
-| 2 | `he1iusun…` | 0% | 16,025,294 | 3.71% |
-| 3 | `CatzoSMU…` | 5% | 12,539,698 | 2.90% |
-| 4 | `3N7s9zXM…` | 0% | 12,256,190 | 2.84% |
-| 5 | `26pV97Ce…` | 7% | 9,151,490 | 2.12% |
-| 6 | `51JBzSTU…` | 10% | 8,820,734 | 2.04% |
-| 7 | `8GbwASqd…` | 0% | 8,152,808 | 1.89% |
-| 8 | `9QU2QSxh…` | 7% | 7,919,104 | 1.83% |
-| 9 | `CvSb7wdQ…` | 5% | 7,297,201 | 1.69% |
-| 10 | `DumiCKHV…` | 0% | 6,646,244 | 1.54% |
+| 1 | `CcaHc2L4…` | 7% | 16,808,220 | 3.87% |
+| 2 | `he1iusun…` | 0% | 16,003,205 | 3.68% |
+| 3 | `CatzoSMU…` | 5% | 12,472,697 | 2.87% |
+| 4 | `3N7s9zXM…` | 0% | 12,265,636 | 2.82% |
+| 5 | `26pV97Ce…` | 7% | 9,189,333 | 2.12% |
+| 6 | `51JBzSTU…` | 10% | 8,837,285 | 2.03% |
+| 7 | `8GbwASqd…` | 0% | 8,157,244 | 1.88% |
+| 8 | `9QU2QSxh…` | 7% | 7,899,432 | 1.82% |
+| 9 | `CvSb7wdQ…` | 5% | 7,479,271 | 1.72% |
+| 10 | `DumiCKHV…` | 0% | 6,653,304 | 1.53% |
 
 ## Supply
-- Total: 631,502,506 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
-- Circulating: 581,192,240 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Total: 631,630,567 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Circulating: 581,307,936 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
 
 ## Economics
-- SOL price: **$73.1** (+0.67% 24h)
-- Market cap: $42,485,185,426 | 24h volume: $1,428,077,935
-- Solana DeFi TVL: $4,749,470,537 (rank #4 across all chains, 6.38% of tracked TVL)
-- Stablecoin supply on Solana: $15,771,603,947
+- SOL price: **$74.12** (+0.03% 24h)
+- Market cap: $43,065,865,151 | 24h volume: $1,360,452,383
+- Solana DeFi TVL: $4,782,669,358 (rank #4 across all chains, 6.39% of tracked TVL)
+- Stablecoin supply on Solana: $15,781,166,950
 
 ---
 _Data sources: Solana public RPC (solana-rpc.publicnode.com), DeFiLlama, CoinGecko. No API keys used. See README for methodology, endpoint choice, and how to reproduce this report._
