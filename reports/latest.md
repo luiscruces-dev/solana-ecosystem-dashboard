@@ -1,6 +1,6 @@
 # Solana Ecosystem Report
 
-_Generated 2026-08-07T09:43:09.142Z_
+_Generated 2026-08-07T15:14:36.568Z_
 
 ## ⚠ Partial data
 One or more Solana RPC calls failed or timed out this run; those fields show as unavailable below rather than breaking the whole report.
@@ -8,10 +8,10 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 
 ## Network
 - Health: **ok**
-- Epoch 1013, 34.40% complete (slot 148,594 / 432,000)
-- Block height: 415,818,661 | Absolute slot: 437,764,594
-- Avg TPS (last 30 samples): **3020.9** (1400.5 non-vote)
-- Latest sample TPS: 3047.9
+- Epoch 1013, 45.30% complete (slot 195,717 / 432,000)
+- Block height: 415,865,760 | Absolute slot: 437,811,717
+- Avg TPS (last 30 samples): **4440.1** (2812.1 non-vote)
+- Latest sample TPS: 4444.1
 
 ## Validators
 - Active: 693 | Delinquent: 7 (1%)
@@ -31,14 +31,14 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 | 10 | `DumiCKHV…` | 0% | 6,569,156 | 1.51% |
 
 ## Supply
-- Total: 631,756,658 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
-- Circulating: 582,052,039 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Total: 631,756,485 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Circulating: 582,051,845 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
 
 ## Economics
-- SOL price: **$73.63** (+0.38% 24h)
-- Market cap: $42,857,713,351 | 24h volume: $1,346,634,902
-- Solana DeFi TVL: $4,701,261,601 (rank #4 across all chains, 6.25% of tracked TVL)
-- Stablecoin supply on Solana: $15,520,778,833
+- SOL price: **$73.82** (+0.4% 24h)
+- Market cap: $42,976,920,030 | 24h volume: $1,522,282,276
+- Solana DeFi TVL: $4,742,731,499 (rank #4 across all chains, 6.25% of tracked TVL)
+- Stablecoin supply on Solana: $15,464,632,211
 
 ---
 _Data sources: Solana public RPC (solana-rpc.publicnode.com), DeFiLlama, CoinGecko. No API keys used. See README for methodology, endpoint choice, and how to reproduce this report._
