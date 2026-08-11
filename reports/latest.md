@@ -1,16 +1,20 @@
 # Solana Ecosystem Report
 
-_Generated 2026-08-11T09:43:56.877Z_
+_Generated 2026-08-11T15:34:01.870Z_
+
+## ⚠ Partial data
+One or more Solana RPC calls failed or timed out this run; those fields show as unavailable below rather than breaking the whole report.
+- RPC getSupply timed out after 8000ms
 
 ## Network
 - Health: **ok**
-- Epoch 1015, 23.82% complete (slot 102,890 / 432,000)
-- Block height: 416,636,581 | Absolute slot: 438,582,890
-- Avg TPS (last 30 samples): **3135.7** (1511.2 non-vote)
-- Latest sample TPS: 3297.6
+- Epoch 1015, 35.36% complete (slot 152,752 / 432,000)
+- Block height: 416,686,433 | Absolute slot: 438,632,752
+- Avg TPS (last 30 samples): **4357.8** (2729.7 non-vote)
+- Latest sample TPS: 3677.8
 
 ## Validators
-- Active: 691 | Delinquent: 8 (1.14%)
+- Active: 690 | Delinquent: 9 (1.29%)
 - Nakamoto coefficient (stake): **18** validators control >1/3 of active stake
 
 | # | Vote Account | Commission | Stake (SOL) | Share |
@@ -27,14 +31,14 @@ _Generated 2026-08-11T09:43:56.877Z_
 | 10 | `DumiCKHV…` | 0% | 6,577,941 | 1.51% |
 
 ## Supply
-- Total: 632,009,676 SOL _(source: Solana RPC getSupply)_
-- Circulating: 582,481,617 SOL _(source: Solana RPC getSupply)_
+- Total: 632,009,505 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Circulating: 582,481,419 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
 
 ## Economics
-- SOL price: **$75.64** (-1.36% 24h)
-- Market cap: $44,061,254,997 | 24h volume: $1,380,919,640
-- Solana DeFi TVL: $4,838,703,877 (rank #3 across all chains, 6.44% of tracked TVL)
-- Stablecoin supply on Solana: $15,667,637,089
+- SOL price: **$75.24** (-1.03% 24h)
+- Market cap: $43,831,704,190 | 24h volume: $1,324,734,938
+- Solana DeFi TVL: $4,829,739,436 (rank #3 across all chains, 6.41% of tracked TVL)
+- Stablecoin supply on Solana: $15,628,638,665
 
 ---
 _Data sources: Solana public RPC (solana-rpc.publicnode.com), DeFiLlama, CoinGecko. No API keys used. See README for methodology, endpoint choice, and how to reproduce this report._
