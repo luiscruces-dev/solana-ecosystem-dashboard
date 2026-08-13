@@ -1,6 +1,6 @@
 # Solana Ecosystem Report
 
-_Generated 2026-08-13T15:37:19.590Z_
+_Generated 2026-08-13T20:07:06.779Z_
 
 ## ⚠ Partial data
 One or more Solana RPC calls failed or timed out this run; those fields show as unavailable below rather than breaking the whole report.
@@ -8,10 +8,10 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 
 ## Network
 - Health: **ok**
-- Epoch 1016, 30.87% complete (slot 133,345 / 432,000)
-- Block height: 417,096,924 | Absolute slot: 439,045,345
-- Avg TPS (last 30 samples): **4635.2** (3002.8 non-vote)
-- Latest sample TPS: 3904.9
+- Epoch 1016, 39.85% complete (slot 172,136 / 432,000)
+- Block height: 417,135,649 | Absolute slot: 439,084,136
+- Avg TPS (last 30 samples): **4218.4** (2585.2 non-vote)
+- Latest sample TPS: 3998.7
 
 ## Validators
 - Active: 688 | Delinquent: 9 (1.29%)
@@ -31,14 +31,14 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 | 10 | `DumiCKHV…` | 0% | 6,581,887 | 1.51% |
 
 ## Supply
-- Total: 632,135,776 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
-- Circulating: 582,614,154 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Total: 632,135,616 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Circulating: 582,613,974 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
 
 ## Economics
-- SOL price: **$76.08** (+0.5% 24h)
-- Market cap: $44,316,527,425 | 24h volume: $1,029,951,882
-- Solana DeFi TVL: $4,820,694,943 (rank #4 across all chains, 6.4% of tracked TVL)
-- Stablecoin supply on Solana: $15,399,247,247
+- SOL price: **$76.13** (+0.45% 24h)
+- Market cap: $44,351,590,394 | 24h volume: $1,153,319,322
+- Solana DeFi TVL: $4,839,630,352 (rank #3 across all chains, 6.44% of tracked TVL)
+- Stablecoin supply on Solana: $15,417,365,436
 
 ---
 _Data sources: Solana public RPC (solana-rpc.publicnode.com), DeFiLlama, CoinGecko. No API keys used. See README for methodology, endpoint choice, and how to reproduce this report._
