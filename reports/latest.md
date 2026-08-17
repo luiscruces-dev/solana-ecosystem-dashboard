@@ -1,6 +1,6 @@
 # Solana Ecosystem Report
 
-_Generated 2026-08-17T08:25:58.014Z_
+_Generated 2026-08-17T14:02:29.945Z_
 
 ## ⚠ Partial data
 One or more Solana RPC calls failed or timed out this run; those fields show as unavailable below rather than breaking the whole report.
@@ -8,10 +8,10 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 
 ## Network
 - Health: **ok**
-- Epoch 1018, 8.91% complete (slot 38,509 / 432,000)
-- Block height: 417,865,044 | Absolute slot: 439,814,509
-- Avg TPS (last 30 samples): **3095.9** (1450.2 non-vote)
-- Latest sample TPS: 2918.3
+- Epoch 1018, 20.19% complete (slot 87,204 / 432,000)
+- Block height: 417,913,725 | Absolute slot: 439,863,204
+- Avg TPS (last 30 samples): **3922.4** (2276.1 non-vote)
+- Latest sample TPS: 3868
 
 ## Validators
 - Active: 689 | Delinquent: 6 (0.86%)
@@ -31,14 +31,14 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 | 10 | `DumiCKHV…` | 0% | 6,588,037 | 1.51% |
 
 ## Supply
-- Total: 632,388,660 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
-- Circulating: 582,899,414 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Total: 632,388,472 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Circulating: 582,899,252 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
 
 ## Economics
-- SOL price: **$75.34** (-0.06% 24h)
-- Market cap: $43,918,588,915 | 24h volume: $970,717,041
-- Solana DeFi TVL: $4,820,987,121 (rank #3 across all chains, 6.38% of tracked TVL)
-- Stablecoin supply on Solana: $15,366,920,799
+- SOL price: **$75.55** (+0.4% 24h)
+- Market cap: $44,044,818,566 | 24h volume: $1,201,742,640
+- Solana DeFi TVL: $4,819,240,792 (rank #3 across all chains, 6.38% of tracked TVL)
+- Stablecoin supply on Solana: $15,303,982,637
 
 ---
 _Data sources: Solana public RPC (solana-rpc.publicnode.com), DeFiLlama, CoinGecko. No API keys used. See README for methodology, endpoint choice, and how to reproduce this report._
