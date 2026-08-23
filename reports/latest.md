@@ -1,20 +1,16 @@
 # Solana Ecosystem Report
 
-_Generated 2026-08-23T07:52:12.711Z_
-
-## ⚠ Partial data
-One or more Solana RPC calls failed or timed out this run; those fields show as unavailable below rather than breaking the whole report.
-- RPC getSupply timed out after 8000ms
+_Generated 2026-08-23T13:48:42.646Z_
 
 ## Network
 - Health: **ok**
-- Epoch 1021, 9.31% complete (slot 40,221 / 432,000)
-- Block height: 419,161,391 | Absolute slot: 441,112,221
-- Avg TPS (last 30 samples): **3576.1** (1710.9 non-vote)
-- Latest sample TPS: 3867.7
+- Epoch 1021, 22.87% complete (slot 98,801 / 432,000)
+- Block height: 419,219,909 | Absolute slot: 441,170,801
+- Avg TPS (last 30 samples): **3949.9** (2094 non-vote)
+- Latest sample TPS: 3814.7
 
 ## Validators
-- Active: 685 | Delinquent: 10 (1.44%)
+- Active: 683 | Delinquent: 12 (1.73%)
 - Nakamoto coefficient (stake): **18** validators control >1/3 of active stake
 
 | # | Vote Account | Commission | Stake (SOL) | Share |
@@ -31,14 +27,14 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 | 10 | `DumiCKHV…` | 0% | 6,568,551 | 1.52% |
 
 ## Supply
-- Total: 632,750,278 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
-- Circulating: 583,277,248 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Total: 632,750,086 SOL _(source: Solana RPC getSupply)_
+- Circulating: 583,276,977 SOL _(source: Solana RPC getSupply)_
 
 ## Economics
-- SOL price: **$92.47** (-2.28% 24h)
-- Market cap: $53,913,229,066 | 24h volume: $5,048,289,892
-- Solana DeFi TVL: $5,478,156,356 (rank #3 across all chains, 6.04% of tracked TVL)
-- Stablecoin supply on Solana: $15,797,314,881
+- SOL price: **$95.18** (+1.47% 24h)
+- Market cap: $55,514,525,693 | 24h volume: $4,491,334,709
+- Solana DeFi TVL: $5,548,146,562 (rank #3 across all chains, 6.05% of tracked TVL)
+- Stablecoin supply on Solana: $15,872,668,119
 
 ---
 _Data sources: Solana public RPC (solana-rpc.publicnode.com), DeFiLlama, CoinGecko. No API keys used. See README for methodology, endpoint choice, and how to reproduce this report._
