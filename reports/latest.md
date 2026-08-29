@@ -1,6 +1,6 @@
 # Solana Ecosystem Report
 
-_Generated 2026-08-28T21:56:29.843Z_
+_Generated 2026-08-29T00:22:17.159Z_
 
 ## ⚠ Partial data
 One or more Solana RPC calls failed or timed out this run; those fields show as unavailable below rather than breaking the whole report.
@@ -8,13 +8,13 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 
 ## Network
 - Health: **ok**
-- Epoch 1024, 17.01% complete (slot 73,486 / 432,000)
-- Block height: 420,489,472 | Absolute slot: 442,441,486
-- Avg TPS (last 30 samples): **4594.6** (2443.4 non-vote)
-- Latest sample TPS: 4518.2
+- Epoch 1024, 23.40% complete (slot 101,105 / 432,000)
+- Block height: 420,517,071 | Absolute slot: 442,469,105
+- Avg TPS (last 30 samples): **4162.5** (2003.8 non-vote)
+- Latest sample TPS: 3974.6
 
 ## Validators
-- Active: 688 | Delinquent: 9 (1.29%)
+- Active: 687 | Delinquent: 10 (1.43%)
 - Nakamoto coefficient (stake): **18** validators control >1/3 of active stake
 
 | # | Vote Account | Commission | Stake (SOL) | Share |
@@ -31,14 +31,14 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 | 10 | `DumiCKHV…` | 0% | 6,585,996 | 1.51% |
 
 ## Supply
-- Total: 633,079,640 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
-- Circulating: 584,162,131 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Total: 633,079,570 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Circulating: 584,162,018 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
 
 ## Economics
-- SOL price: **$103.39** (-4.72% 24h)
-- Market cap: $60,420,768,282 | 24h volume: $6,030,045,002
-- Solana DeFi TVL: $5,814,581,041 (rank #2 across all chains, 6.64% of tracked TVL)
-- Stablecoin supply on Solana: $15,866,582,604
+- SOL price: **$104.4** (-4.71% 24h)
+- Market cap: $60,958,543,516 | 24h volume: $5,912,421,074
+- Solana DeFi TVL: $5,828,282,097 (rank #2 across all chains, 6.65% of tracked TVL)
+- Stablecoin supply on Solana: $15,880,202,940
 
 ---
 _Data sources: Solana public RPC (solana-rpc.publicnode.com), DeFiLlama, CoinGecko. No API keys used. See README for methodology, endpoint choice, and how to reproduce this report._
