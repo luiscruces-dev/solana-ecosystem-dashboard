@@ -1,6 +1,6 @@
 # Solana Ecosystem Report
 
-_Generated 2026-09-19T04:39:44.892Z_
+_Generated 2026-09-19T11:01:58.921Z_
 
 ## ⚠ Partial data
 One or more Solana RPC calls failed or timed out this run; those fields show as unavailable below rather than breaking the whole report.
@@ -8,10 +8,10 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 
 ## Network
 - Health: **ok**
-- Epoch 1037, 73.58% complete (slot 317,878 / 432,000)
-- Block height: 426,342,737 | Absolute slot: 448,301,878
-- Avg TPS (last 30 samples): **4198.5** (1651.3 non-vote)
-- Latest sample TPS: 4517.1
+- Epoch 1037, 93.55% complete (slot 404,122 / 432,000)
+- Block height: 426,428,960 | Absolute slot: 448,388,122
+- Avg TPS (last 30 samples): **3896** (1353 non-vote)
+- Latest sample TPS: 3783.7
 
 ## Validators
 - Active: 677 | Delinquent: 11 (1.6%)
@@ -31,14 +31,14 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 | 10 | `DumiCKHV…` | 0% | 6,557,940 | 1.49% |
 
 ## Supply
-- Total: 634,297,789 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
-- Circulating: 587,296,543 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Total: 634,297,561 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Circulating: 587,296,311 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
 
 ## Economics
-- SOL price: **$112.51** (+7.38% 24h)
-- Market cap: $66,065,159,286 | 24h volume: $6,066,970,429
-- Solana DeFi TVL: $6,304,517,445 (rank #2 across all chains, 6.8% of tracked TVL)
-- Stablecoin supply on Solana: $15,480,253,893
+- SOL price: **$111.65** (+5.16% 24h)
+- Market cap: $65,600,138,358 | 24h volume: $5,469,312,538
+- Solana DeFi TVL: $6,255,704,029 (rank #2 across all chains, 6.69% of tracked TVL)
+- Stablecoin supply on Solana: $15,489,112,184
 
 ---
 _Data sources: Solana public RPC (solana-rpc.publicnode.com), DeFiLlama, CoinGecko. No API keys used. See README for methodology, endpoint choice, and how to reproduce this report._
