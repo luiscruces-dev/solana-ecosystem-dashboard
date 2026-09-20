@@ -1,6 +1,6 @@
 # Solana Ecosystem Report
 
-_Generated 2026-09-20T04:55:46.240Z_
+_Generated 2026-09-20T11:27:05.250Z_
 
 ## ⚠ Partial data
 One or more Solana RPC calls failed or timed out this run; those fields show as unavailable below rather than breaking the whole report.
@@ -8,10 +8,10 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 
 ## Network
 - Health: **ok**
-- Epoch 1038, 49.43% complete (slot 213,547 / 432,000)
-- Block height: 426,670,271 | Absolute slot: 448,629,547
-- Avg TPS (last 30 samples): **3938.7** (1405 non-vote)
-- Latest sample TPS: 3885.4
+- Epoch 1038, 69.85% complete (slot 301,753 / 432,000)
+- Block height: 426,758,476 | Absolute slot: 448,717,753
+- Avg TPS (last 30 samples): **3712.4** (1171.8 non-vote)
+- Latest sample TPS: 3456.5
 
 ## Validators
 - Active: 678 | Delinquent: 12 (1.74%)
@@ -31,14 +31,14 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 | 10 | `HZKopZYv…` | 100% | 6,627,951 | 1.51% |
 
 ## Supply
-- Total: 634,375,843 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
-- Circulating: 587,367,132 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Total: 634,375,570 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Circulating: 587,366,897 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
 
 ## Economics
-- SOL price: **$108.87** (-3.01% 24h)
-- Market cap: $63,939,006,387 | 24h volume: $3,048,000,329
-- Solana DeFi TVL: $6,185,325,042 (rank #2 across all chains, 6.65% of tracked TVL)
-- Stablecoin supply on Solana: $16,487,939,894
+- SOL price: **$108.03** (-3.44% 24h)
+- Market cap: $63,436,068,891 | 24h volume: $2,907,319,160
+- Solana DeFi TVL: $6,122,299,004 (rank #2 across all chains, 6.63% of tracked TVL)
+- Stablecoin supply on Solana: $16,454,574,284
 
 ---
 _Data sources: Solana public RPC (solana-rpc.publicnode.com), DeFiLlama, CoinGecko. No API keys used. See README for methodology, endpoint choice, and how to reproduce this report._
