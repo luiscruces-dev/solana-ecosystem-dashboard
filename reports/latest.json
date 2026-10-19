@@ -1,31 +1,31 @@
 {
-  "fetchedAt": "2026-10-19T13:20:39.104Z",
+  "fetchedAt": "2026-10-19T22:22:26.137Z",
   "solana": {
-    "fetchedAt": "2026-10-19T13:20:39.104Z",
+    "fetchedAt": "2026-10-19T22:22:26.082Z",
     "warnings": [
       "RPC getSupply HTTP 403"
     ],
     "epoch": {
       "epoch": 1062,
-      "slotIndex": 63791,
+      "slotIndex": 213132,
       "slotsInEpoch": 432000,
-      "progressPct": 14.766435185185184,
-      "absoluteSlot": 458847791,
-      "blockHeight": 436883011
+      "progressPct": 49.33611111111111,
+      "absoluteSlot": 458997132,
+      "blockHeight": 437032256
     },
     "health": "ok",
     "performance": {
-      "avgTps": 4868.2,
-      "avgNonVoteTps": 1803.5,
-      "latestSampleTps": 4535.7,
+      "avgTps": 5072.3,
+      "avgNonVoteTps": 2018.9,
+      "latestSampleTps": 4899.9,
       "sampleWindowCount": 30
     },
     "supply": null,
     "validators": {
-      "current": 666,
-      "delinquent": 13,
+      "current": 669,
+      "delinquent": 10,
       "total": 679,
-      "delinquencyPct": 1.91,
+      "delinquencyPct": 1.47,
       "nakamotoCoefficient": 18,
       "topValidators": [
         {
@@ -33,87 +33,87 @@
           "nodePubkey": "Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk",
           "activatedStakeSol": 17095414.586203944,
           "commission": 7,
-          "stakeSharePct": 3.9062061109628385
+          "stakeSharePct": 3.904140231642852
         },
         {
           "votePubkey": "he1iusunGwqrNtafDtLdhsUQDFvo13z9sUa36PauBtk",
           "nodePubkey": "HEL1USMZKAL2odpNBj2oCjffnFGaYwmbGmyewGv1e2TU",
           "activatedStakeSol": 15730365.323957292,
           "commission": 0,
-          "stakeSharePct": 3.5943000297697996
+          "stakeSharePct": 3.592399108545881
         },
         {
           "votePubkey": "3N7s9zXMZ4QqvHQR15t5GNHyqc89KduzMP7423eWiD5g",
           "nodePubkey": "DRpbCBMxVnDK7maPM5tGv6MvB3v1sRMC86PZ8okm21hy",
           "activatedStakeSol": 12524167.655920943,
           "commission": 0,
-          "stakeSharePct": 2.861701890035572
+          "stakeSharePct": 2.860188418757649
         },
         {
           "votePubkey": "8GbwASqdpw4dVcwbWUxbHXMrjyQx2aKkoBR5H1GJF8iD",
           "nodePubkey": "E1r4Psq84tHfQ6aPTvvDka4U3u8zPVD7gEUrH25RdxHL",
           "activatedStakeSol": 10975835.744644886,
           "commission": 0,
-          "stakeSharePct": 2.5079167540783462
+          "stakeSharePct": 2.5065903895160777
         },
         {
           "votePubkey": "CatzoSMUkTRidT5DwBxAC2pEtnwMBTpkCepHkFgZDiqb",
           "nodePubkey": "JUPiTERrZqgf1jUyR7dSkhMx4Kn2qJyekWsg3LT1h4b",
           "activatedStakeSol": 9717890.314618023,
           "commission": 5,
-          "stakeSharePct": 2.2204832963373358
+          "stakeSharePct": 2.2193089470091203
         },
         {
           "votePubkey": "51JBzSTU5rAM8gLAVQKgp4WoZerQcSqWC7BitBzgUNAm",
           "nodePubkey": "CAo1dCGYrB6NhHh5xb1cGjUiu86iyCfMTENxgHumSve4",
           "activatedStakeSol": 9481609.087348364,
           "commission": 10,
-          "stakeSharePct": 2.1664943644391075
+          "stakeSharePct": 2.165348568293891
         },
         {
           "votePubkey": "26pV97Ce83ZQ6Kz9XT4td8tdoUFPTng8Fb8gPyc53dJx",
           "nodePubkey": "C8Bey3LKVJHVqN6xPTeW8WJfUgFQAeGNBpT4Rp99JP1k",
           "activatedStakeSol": 9252107.135521328,
           "commission": 7,
-          "stakeSharePct": 2.114054458861846
+          "stakeSharePct": 2.1129363966644545
         },
         {
           "votePubkey": "9QU2QSxhb24FUX3Tu2FpczXjpK3VYrvRudywSZaM29mF",
           "nodePubkey": "EvnRmnMrd69kFdbLMxWkTn1icZ7DCceRhvmb2SJXqDo4",
           "activatedStakeSol": 7785119.329266246,
           "commission": 7,
-          "stakeSharePct": 1.7788559935303305
+          "stakeSharePct": 1.7779152080966192
         },
         {
           "votePubkey": "CvSb7wdQAFpHuSpTYTJnX5SYH4hCfQ9VuGnqrKaKwycB",
           "nodePubkey": "9eGrDohdNTAo61DRHyfMuqKWXqYnA3i254Wiszxe8FoY",
           "activatedStakeSol": 6993888.165416107,
           "commission": 5,
-          "stakeSharePct": 1.5980641214273945
+          "stakeSharePct": 1.5972189515805695
         },
         {
           "votePubkey": "DumiCKHVqoCQKD8roLApzR5Fit8qGV5fVQsJV9sTZk4a",
           "nodePubkey": "Awes4Tr6TX8JDzEhCZY2QVNimT6iD1zWHzf1vNyGvpLM",
           "activatedStakeSol": 6731555.829809148,
           "commission": 0,
-          "stakeSharePct": 1.5381226577510463
+          "stakeSharePct": 1.5373091892089403
         }
       ]
     }
   },
   "defi": {
-    "tvlUsd": 5895651698.778165,
+    "tvlUsd": 5857858734.145347,
     "tvlRankAmongChains": 4,
-    "tvlShareOfAllChainsPct": 6.56,
-    "stablecoinSupplyUsd": 15451599787.95117
+    "tvlShareOfAllChainsPct": 6.57,
+    "stablecoinSupplyUsd": 15583490439.297302
   },
   "price": {
-    "priceUsd": 105.25,
-    "change24hPct": 1.42,
-    "marketCapUsd": 62042888833,
-    "volume24hUsd": 2687823887,
-    "circulatingSupplySol": 589494065.4847862,
-    "totalSupplySol": 636090699.6826845
+    "priceUsd": 105.36,
+    "change24hPct": 2.07,
+    "marketCapUsd": 62117038716,
+    "volume24hUsd": 2750636007,
+    "circulatingSupplySol": 589493621.1236515,
+    "totalSupplySol": 636090245.3869947
   },
   "anomalies": {
     "thresholds": {
