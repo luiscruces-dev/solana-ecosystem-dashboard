@@ -1,6 +1,6 @@
 # Solana Ecosystem Report
 
-_Generated 2026-10-24T11:04:32.857Z_
+_Generated 2026-10-24T15:58:35.745Z_
 
 ## ⚠ Partial data
 One or more Solana RPC calls failed or timed out this run; those fields show as unavailable below rather than breaking the whole report.
@@ -8,10 +8,10 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 
 ## Network
 - Health: **ok**
-- Epoch 1066, 72.82% complete (slot 314,592 / 432,000)
-- Block height: 438,857,046 | Absolute slot: 460,826,592
-- Avg TPS (last 30 samples): **1515.3** (1515.3 non-vote)
-- Latest sample TPS: 1332.7
+- Epoch 1066, 92.06% complete (slot 397,712 / 432,000)
+- Block height: 438,940,094 | Absolute slot: 460,909,712
+- Avg TPS (last 30 samples): **2075.7** (2075.7 non-vote)
+- Latest sample TPS: 2529.6
 
 ## Validators
 - Active: 664 | Delinquent: 14 (2.06%)
@@ -31,14 +31,14 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 | 10 | `DumiCKHV…` | 0% | 7,003,145 | 1.60% |
 
 ## Supply
-- Total: 636,334,879 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
-- Circulating: 589,708,773 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Total: 636,334,814 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Circulating: 589,708,702 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
 
 ## Economics
-- SOL price: **$101.59** (-2.12% 24h)
-- Market cap: $59,907,231,928 | 24h volume: $2,291,451,550
-- Solana DeFi TVL: $5,766,408,186 (rank #3 across all chains, 6.45% of tracked TVL)
-- Stablecoin supply on Solana: $15,540,587,872
+- SOL price: **$99.48** (-4.93% 24h)
+- Market cap: $58,658,753,076 | 24h volume: $2,466,991,924
+- Solana DeFi TVL: $5,755,487,127 (rank #3 across all chains, 6.44% of tracked TVL)
+- Stablecoin supply on Solana: $15,535,116,776
 
 ---
 _Data sources: Solana public RPC (solana-rpc.publicnode.com), DeFiLlama, CoinGecko. No API keys used. See README for methodology, endpoint choice, and how to reproduce this report._
