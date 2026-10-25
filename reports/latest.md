@@ -1,6 +1,9 @@
 # Solana Ecosystem Report
 
-_Generated 2026-10-24T20:51:59.752Z_
+_Generated 2026-10-25T04:44:09.962Z_
+
+## ⚠ Flags
+- 🟡 **tps_drop:** Average TPS dropped 38.5% vs previous snapshot (2243.6 -> 1380.3)
 
 ## ⚠ Partial data
 One or more Solana RPC calls failed or timed out this run; those fields show as unavailable below rather than breaking the whole report.
@@ -8,10 +11,10 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 
 ## Network
 - Health: **ok**
-- Epoch 1067, 11.29% complete (slot 48,760 / 432,000)
-- Block height: 439,021,938 | Absolute slot: 460,992,760
-- Avg TPS (last 30 samples): **2243.6** (2243.6 non-vote)
-- Latest sample TPS: 1950.8
+- Epoch 1067, 42.16% complete (slot 182,134 / 432,000)
+- Block height: 439,155,068 | Absolute slot: 461,126,134
+- Avg TPS (last 30 samples): **1380.3** (1380.3 non-vote)
+- Latest sample TPS: 1371.7
 
 ## Validators
 - Active: 665 | Delinquent: 25 (3.62%)
@@ -31,14 +34,14 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 | 10 | `DumiCKHV…` | 0% | 7,006,653 | 1.60% |
 
 ## Supply
-- Total: 636,396,197 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
-- Circulating: 589,764,444 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Total: 636,396,067 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Circulating: 589,764,301 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
 
 ## Economics
-- SOL price: **$101.45** (-2.28% 24h)
-- Market cap: $59,833,523,093 | 24h volume: $2,575,505,136
-- Solana DeFi TVL: $5,738,978,253 (rank #3 across all chains, 6.45% of tracked TVL)
-- Stablecoin supply on Solana: $15,531,593,125
+- SOL price: **$102.53** (-0.1% 24h)
+- Market cap: $60,470,116,163 | 24h volume: $2,267,613,067
+- Solana DeFi TVL: $5,803,004,488 (rank #3 across all chains, 6.48% of tracked TVL)
+- Stablecoin supply on Solana: $15,520,019,137
 
 ---
 _Data sources: Solana public RPC (solana-rpc.publicnode.com), DeFiLlama, CoinGecko. No API keys used. See README for methodology, endpoint choice, and how to reproduce this report._
