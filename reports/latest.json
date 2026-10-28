@@ -1,23 +1,23 @@
 {
-  "fetchedAt": "2026-10-28T12:58:32.506Z",
+  "fetchedAt": "2026-10-28T22:37:07.443Z",
   "solana": {
-    "fetchedAt": "2026-10-28T12:58:32.506Z",
+    "fetchedAt": "2026-10-28T22:37:07.443Z",
     "warnings": [
       "RPC getSupply HTTP 403"
     ],
     "epoch": {
       "epoch": 1070,
-      "slotIndex": 244873,
+      "slotIndex": 407588,
       "slotsInEpoch": 432000,
-      "progressPct": 56.683564814814815,
-      "absoluteSlot": 462484873,
-      "blockHeight": 440509395
+      "progressPct": 94.34907407407407,
+      "absoluteSlot": 462647588,
+      "blockHeight": 440671969
     },
     "health": "ok",
     "performance": {
-      "avgTps": 1627.6,
-      "avgNonVoteTps": 1627.6,
-      "latestSampleTps": 1696.3,
+      "avgTps": 1497.8,
+      "avgNonVoteTps": 1497.8,
+      "latestSampleTps": 1611.1,
       "sampleWindowCount": 30
     },
     "supply": null,
@@ -102,18 +102,18 @@
     }
   },
   "defi": {
-    "tvlUsd": 5796704060.280992,
+    "tvlUsd": 5748687095.334989,
     "tvlRankAmongChains": 4,
-    "tvlShareOfAllChainsPct": 6.51,
-    "stablecoinSupplyUsd": 15035959411.02708
+    "tvlShareOfAllChainsPct": 6.48,
+    "stablecoinSupplyUsd": 15379433515.332933
   },
   "price": {
-    "priceUsd": 101.42,
-    "change24hPct": 0.54,
-    "marketCapUsd": 59835445530,
-    "volume24hUsd": 2082796817,
-    "circulatingSupplySol": 589928396.6966999,
-    "totalSupplySol": 636578209.9393623
+    "priceUsd": 102.59,
+    "change24hPct": 1.48,
+    "marketCapUsd": 60524688190,
+    "volume24hUsd": 2699589711,
+    "circulatingSupplySol": 589928193.3970087,
+    "totalSupplySol": 636577999.0670798
   },
   "anomalies": {
     "thresholds": {
