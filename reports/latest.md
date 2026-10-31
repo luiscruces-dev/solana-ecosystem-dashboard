@@ -1,9 +1,6 @@
 # Solana Ecosystem Report
 
-_Generated 2026-10-31T05:45:19.507Z_
-
-## ⚠ Flags
-- 🟡 **tps_drop:** Average TPS dropped 37.8% vs previous snapshot (1598 -> 994.6)
+_Generated 2026-10-31T12:35:24.424Z_
 
 ## ⚠ Partial data
 One or more Solana RPC calls failed or timed out this run; those fields show as unavailable below rather than breaking the whole report.
@@ -11,10 +8,10 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 
 ## Network
 - Health: **ok**
-- Epoch 1073, 9.15% complete (slot 39,509 / 432,000)
-- Block height: 441,597,417 | Absolute slot: 463,575,509
-- Avg TPS (last 30 samples): **994.6** (994.6 non-vote)
-- Latest sample TPS: 1250.7
+- Epoch 1073, 35.78% complete (slot 154,552 / 432,000)
+- Block height: 441,712,407 | Absolute slot: 463,690,552
+- Avg TPS (last 30 samples): **1128.6** (1128.6 non-vote)
+- Latest sample TPS: 1042
 
 ## Validators
 - Active: 665 | Delinquent: 27 (3.9%)
@@ -34,14 +31,14 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 | 10 | `CvSb7wdQ…` | 5% | 6,976,145 | 1.62% |
 
 ## Supply
-- Total: 636,761,294 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
-- Circulating: 590,095,213 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Total: 636,761,216 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Circulating: 590,095,140 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
 
 ## Economics
-- SOL price: **$95.98** (-2.2% 24h)
-- Market cap: $56,643,054,378 | 24h volume: $3,143,884,664
-- Solana DeFi TVL: $5,470,320,181 (rank #5 across all chains, 6.44% of tracked TVL)
-- Stablecoin supply on Solana: $15,154,878,782
+- SOL price: **$95.84** (-0.73% 24h)
+- Market cap: $56,553,756,740 | 24h volume: $2,936,670,492
+- Solana DeFi TVL: $5,444,660,490 (rank #5 across all chains, 6.41% of tracked TVL)
+- Stablecoin supply on Solana: $15,117,997,176
 
 ---
 _Data sources: Solana public RPC (solana-rpc.publicnode.com), DeFiLlama, CoinGecko. No API keys used. See README for methodology, endpoint choice, and how to reproduce this report._
