@@ -1,23 +1,23 @@
 {
-  "fetchedAt": "2026-11-09T22:23:55.472Z",
+  "fetchedAt": "2026-11-10T07:21:31.617Z",
   "solana": {
-    "fetchedAt": "2026-11-09T22:23:55.472Z",
+    "fetchedAt": "2026-11-10T07:21:31.616Z",
     "warnings": [
       "RPC getSupply HTTP 403"
     ],
     "epoch": {
       "epoch": 1082,
-      "slotIndex": 59981,
+      "slotIndex": 210493,
       "slotsInEpoch": 432000,
-      "progressPct": 13.884490740740741,
-      "absoluteSlot": 467483981,
-      "blockHeight": 445501721
+      "progressPct": 48.72523148148148,
+      "absoluteSlot": 467634493,
+      "blockHeight": 445652078
     },
     "health": "ok",
     "performance": {
-      "avgTps": 1675.7,
-      "avgNonVoteTps": 1675.7,
-      "latestSampleTps": 1552.7,
+      "avgTps": 1149.8,
+      "avgNonVoteTps": 1149.8,
+      "latestSampleTps": 1132.5,
       "sampleWindowCount": 30
     },
     "supply": null,
@@ -102,18 +102,18 @@
     }
   },
   "defi": {
-    "tvlUsd": 5088846925.642429,
+    "tvlUsd": 5070175019.128634,
     "tvlRankAmongChains": 4,
-    "tvlShareOfAllChainsPct": 6.44,
-    "stablecoinSupplyUsd": 14559519008.98029
+    "tvlShareOfAllChainsPct": 6.43,
+    "stablecoinSupplyUsd": 14546266177.660492
   },
   "price": {
-    "priceUsd": 86.38,
-    "change24hPct": -0.08,
-    "marketCapUsd": 51063802101,
-    "volume24hUsd": 2751201999,
-    "circulatingSupplySol": 591149274.2254729,
-    "totalSupplySol": 637311169.9024621
+    "priceUsd": 86.06,
+    "change24hPct": 0.77,
+    "marketCapUsd": 50876985447,
+    "volume24hUsd": 2110261029,
+    "circulatingSupplySol": 591149149.7553736,
+    "totalSupplySol": 637311024.6024176
   },
   "anomalies": {
     "thresholds": {
@@ -129,6 +129,11 @@
         "severity": "warning",
         "metric": "validator_delinquency",
         "message": "5.87% of validators are delinquent (threshold: 5%)"
+      },
+      {
+        "severity": "warning",
+        "metric": "tps_drop",
+        "message": "Average TPS dropped 31.4% vs previous snapshot (1675.7 -> 1149.8)"
       }
     ]
   }
