@@ -1,10 +1,9 @@
 # Solana Ecosystem Report
 
-_Generated 2026-11-12T07:13:51.232Z_
+_Generated 2026-11-12T19:56:19.608Z_
 
 ## ⚠ Flags
-- 🟡 **validator_delinquency:** 5.3% of validators are delinquent (threshold: 5%)
-- 🟡 **tps_drop:** Average TPS dropped 42.8% vs previous snapshot (2398.6 -> 1371.4)
+- 🟡 **validator_delinquency:** 5.44% of validators are delinquent (threshold: 5%)
 
 ## ⚠ Partial data
 One or more Solana RPC calls failed or timed out this run; those fields show as unavailable below rather than breaking the whole report.
@@ -12,13 +11,13 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 
 ## Network
 - Health: **ok**
-- Epoch 1084, 34.60% complete (slot 149,469 / 432,000)
-- Block height: 446,453,360 | Absolute slot: 468,437,469
-- Avg TPS (last 30 samples): **1371.4** (1371.4 non-vote)
-- Latest sample TPS: 1174.1
+- Epoch 1084, 83.84% complete (slot 362,192 / 432,000)
+- Block height: 446,665,766 | Absolute slot: 468,650,192
+- Avg TPS (last 30 samples): **2338.2** (2338.2 non-vote)
+- Latest sample TPS: 1852.4
 
 ## Validators
-- Active: 661 | Delinquent: 37 (5.3%)
+- Active: 660 | Delinquent: 38 (5.44%)
 - Nakamoto coefficient (stake): **18** validators control >1/3 of active stake
 
 | # | Vote Account | Commission | Stake (SOL) | Share |
@@ -35,14 +34,14 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 | 10 | `CvSb7wdQ…` | 5% | 6,730,421 | 1.56% |
 
 ## Supply
-- Total: 637,432,871 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
-- Circulating: 591,457,019 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Total: 637,432,668 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Circulating: 591,455,686 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
 
 ## Economics
-- SOL price: **$82.69** (+0.29% 24h)
-- Market cap: $48,910,391,432 | 24h volume: $2,023,586,116
-- Solana DeFi TVL: $5,042,576,841 (rank #3 across all chains, 6.48% of tracked TVL)
-- Stablecoin supply on Solana: $13,842,359,955
+- SOL price: **$81.66** (-3.52% 24h)
+- Market cap: $48,297,940,904 | 24h volume: $2,196,985,021
+- Solana DeFi TVL: $4,978,369,965 (rank #3 across all chains, 6.48% of tracked TVL)
+- Stablecoin supply on Solana: $13,870,708,516
 
 ---
 _Data sources: Solana public RPC (solana-rpc.publicnode.com), DeFiLlama, CoinGecko. No API keys used. See README for methodology, endpoint choice, and how to reproduce this report._
