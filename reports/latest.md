@@ -1,9 +1,9 @@
 # Solana Ecosystem Report
 
-_Generated 2026-11-18T20:34:04.652Z_
+_Generated 2026-11-19T07:28:54.110Z_
 
 ## ⚠ Flags
-- 🟡 **delinquency_jump:** Delinquent validator share rose from 0.75% to 3.65% since last snapshot
+- 🟡 **tps_drop:** Average TPS dropped 43.3% vs previous snapshot (2272.3 -> 1289.3)
 
 ## ⚠ Partial data
 One or more Solana RPC calls failed or timed out this run; those fields show as unavailable below rather than breaking the whole report.
@@ -11,10 +11,10 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 
 ## Network
 - Health: **ok**
-- Epoch 1090, 43.92% complete (slot 189,742 / 432,000)
-- Block height: 449,084,113 | Absolute slot: 471,069,742
-- Avg TPS (last 30 samples): **2272.3** (2272.3 non-vote)
-- Latest sample TPS: 2395.4
+- Epoch 1090, 86.19% complete (slot 372,343 / 432,000)
+- Block height: 449,266,650 | Absolute slot: 471,252,343
+- Avg TPS (last 30 samples): **1289.3** (1289.3 non-vote)
+- Latest sample TPS: 1077.9
 
 ## Validators
 - Active: 660 | Delinquent: 25 (3.65%)
@@ -34,14 +34,14 @@ One or more Solana RPC calls failed or timed out this run; those fields show as 
 | 10 | `CvSb7wdQ…` | 5% | 6,771,472 | 1.59% |
 
 ## Supply
-- Total: 637,798,773 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
-- Circulating: 591,794,737 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Total: 637,798,595 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
+- Circulating: 591,796,257 SOL _(source: CoinGecko, RPC getSupply was unavailable this run)_
 
 ## Economics
-- SOL price: **$72.78** (-0.4% 24h)
-- Market cap: $43,076,178,422 | 24h volume: $2,384,249,819
-- Solana DeFi TVL: $4,740,501,311 (rank #3 across all chains, 6.76% of tracked TVL)
-- Stablecoin supply on Solana: $12,987,020,773
+- SOL price: **$74.76** (-0.39% 24h)
+- Market cap: $44,241,823,049 | 24h volume: $2,181,441,498
+- Solana DeFi TVL: $4,788,309,230 (rank #3 across all chains, 6.76% of tracked TVL)
+- Stablecoin supply on Solana: $12,606,556,674
 
 ---
 _Data sources: Solana public RPC (solana-rpc.publicnode.com), DeFiLlama, CoinGecko. No API keys used. See README for methodology, endpoint choice, and how to reproduce this report._
