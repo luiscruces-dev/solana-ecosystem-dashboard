@@ -1,0 +1,129 @@
+{
+  "fetchedAt": "2026-11-21T19:18:20.735Z",
+  "solana": {
+    "fetchedAt": "2026-11-21T19:18:20.727Z",
+    "warnings": [
+      "RPC getSupply HTTP 403"
+    ],
+    "epoch": {
+      "epoch": 1093,
+      "slotIndex": 77378,
+      "slotsInEpoch": 432000,
+      "progressPct": 17.911574074074075,
+      "absoluteSlot": 472253378,
+      "blockHeight": 450267320
+    },
+    "health": "ok",
+    "performance": {
+      "avgTps": 1619.8,
+      "avgNonVoteTps": 1619.8,
+      "latestSampleTps": 1644.7,
+      "sampleWindowCount": 30
+    },
+    "supply": null,
+    "validators": {
+      "current": 661,
+      "delinquent": 24,
+      "total": 685,
+      "delinquencyPct": 3.5,
+      "nakamotoCoefficient": 18,
+      "topValidators": [
+        {
+          "votePubkey": "he1iusunGwqrNtafDtLdhsUQDFvo13z9sUa36PauBtk",
+          "nodePubkey": "HEL1USMZKAL2odpNBj2oCjffnFGaYwmbGmyewGv1e2TU",
+          "activatedStakeSol": 17043671.143363312,
+          "commission": 0,
+          "stakeSharePct": 3.979906894078491
+        },
+        {
+          "votePubkey": "CcaHc2L43ZWjwCHART3oZoJvHLAe9hzT2DJNUpBzoTN1",
+          "nodePubkey": "Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk",
+          "activatedStakeSol": 16329817.40092117,
+          "commission": 7,
+          "stakeSharePct": 3.8132132629346214
+        },
+        {
+          "votePubkey": "3N7s9zXMZ4QqvHQR15t5GNHyqc89KduzMP7423eWiD5g",
+          "nodePubkey": "DRpbCBMxVnDK7maPM5tGv6MvB3v1sRMC86PZ8okm21hy",
+          "activatedStakeSol": 12412620.367495667,
+          "commission": 0,
+          "stakeSharePct": 2.898499563775703
+        },
+        {
+          "votePubkey": "8GbwASqdpw4dVcwbWUxbHXMrjyQx2aKkoBR5H1GJF8iD",
+          "nodePubkey": "E1r4Psq84tHfQ6aPTvvDka4U3u8zPVD7gEUrH25RdxHL",
+          "activatedStakeSol": 10241723.671281228,
+          "commission": 0,
+          "stakeSharePct": 2.3915684774551123
+        },
+        {
+          "votePubkey": "51JBzSTU5rAM8gLAVQKgp4WoZerQcSqWC7BitBzgUNAm",
+          "nodePubkey": "7jtWrBuj9k2E5RnoHGWSBosBwqwjZMvEnhe9qGLJdhT4",
+          "activatedStakeSol": 9826792.860461008,
+          "commission": 10,
+          "stakeSharePct": 2.2946770283853493
+        },
+        {
+          "votePubkey": "CatzoSMUkTRidT5DwBxAC2pEtnwMBTpkCepHkFgZDiqb",
+          "nodePubkey": "JUPiTERkf97eKN222JwY7bkpWuJnwqKtT44fsbJfhkr",
+          "activatedStakeSol": 9616960.743862713,
+          "commission": 5,
+          "stakeSharePct": 2.2456786476712374
+        },
+        {
+          "votePubkey": "26pV97Ce83ZQ6Kz9XT4td8tdoUFPTng8Fb8gPyc53dJx",
+          "nodePubkey": "C8Bey3LKVJHVqN6xPTeW8WJfUgFQAeGNBpT4Rp99JP1k",
+          "activatedStakeSol": 9237165.998962292,
+          "commission": 7,
+          "stakeSharePct": 2.1569919022600206
+        },
+        {
+          "votePubkey": "9QU2QSxhb24FUX3Tu2FpczXjpK3VYrvRudywSZaM29mF",
+          "nodePubkey": "EvnRmnMrd69kFdbLMxWkTn1icZ7DCceRhvmb2SJXqDo4",
+          "activatedStakeSol": 7985736.677705741,
+          "commission": 7,
+          "stakeSharePct": 1.8647677598656567
+        },
+        {
+          "votePubkey": "DumiCKHVqoCQKD8roLApzR5Fit8qGV5fVQsJV9sTZk4a",
+          "nodePubkey": "Awes4Tr6TX8JDzEhCZY2QVNimT6iD1zWHzf1vNyGvpLM",
+          "activatedStakeSol": 6985062.502362656,
+          "commission": 0,
+          "stakeSharePct": 1.6310980289916808
+        },
+        {
+          "votePubkey": "CvSb7wdQAFpHuSpTYTJnX5SYH4hCfQ9VuGnqrKaKwycB",
+          "nodePubkey": "9eGrDohdNTAo61DRHyfMuqKWXqYnA3i254Wiszxe8FoY",
+          "activatedStakeSol": 6774153.834712837,
+          "commission": 5,
+          "stakeSharePct": 1.5818482603626214
+        }
+      ]
+    }
+  },
+  "defi": {
+    "tvlUsd": 4630109171.910588,
+    "tvlRankAmongChains": 3,
+    "tvlShareOfAllChainsPct": 6.81,
+    "stablecoinSupplyUsd": 13126125423.426807
+  },
+  "price": {
+    "priceUsd": 70.63,
+    "change24hPct": 3.87,
+    "marketCapUsd": 41811028714,
+    "volume24hUsd": 4262272602,
+    "circulatingSupplySol": 591961714.4591484,
+    "totalSupplySol": 637981576.7860242
+  },
+  "anomalies": {
+    "thresholds": {
+      "tpsDropPct": 30,
+      "delinquencyPctAbsolute": 5,
+      "delinquencyJumpPct": 2,
+      "tvlMovePct": 10,
+      "solPriceMovePct": 8,
+      "slotTimeSecTarget": 0.4
+    },
+    "flags": []
+  }
+}
